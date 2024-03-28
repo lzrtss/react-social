@@ -1,0 +1,1 @@
+export { signUpValidationSchema } from './signUpValidationSchema';
