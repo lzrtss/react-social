@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -12,13 +12,22 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
+import { useToast } from '@/components/ui/use-toast';
 import { Input } from '@/components/ui/input';
 import Loader from '@/components/shared/Loader';
 import { signUpValidationSchema } from '@/lib/validation';
-import { createUser } from '@/lib/appwrite/api';
+import { useCreateUser, useSignIn } from '@/lib/react-query/queries';
+import { useUserContext } from '@/context/AuthContext';
 
 const SignUpForm = () => {
-  const isLoading = false;
+  const navigate = useNavigate();
+  const { toast } = useToast();
+  const { checkAuthenticatedUser } = useUserContext();
+
+  const { mutateAsync: createUser, isPending: isCreatingUser } =
+    useCreateUser();
+
+  const { mutateAsync: signIn } = useSignIn();
 
   const form = useForm<z.infer<typeof signUpValidationSchema>>({
     resolver: zodResolver(signUpValidationSchema),
@@ -33,7 +42,34 @@ const SignUpForm = () => {
   const onSubmit = async (values: z.infer<typeof signUpValidationSchema>) => {
     const newUser = await createUser(values);
 
-    console.log(newUser);
+    if (!newUser) {
+      return toast({
+        title: 'Failed to create an account. Please try again.',
+      });
+    }
+
+    const session = await signIn({
+      email: values.email,
+      password: values.password,
+    });
+
+    if (!session) {
+      return toast({
+        title: 'Failed to sign in. Please try again.',
+      });
+    }
+
+    const isLoggedIn = await checkAuthenticatedUser();
+
+    if (isLoggedIn) {
+      form.reset();
+
+      navigate('/');
+    } else {
+      return toast({
+        title: 'Failed to sign in. Please try again.',
+      });
+    }
   };
 
   return (
@@ -44,10 +80,10 @@ const SignUpForm = () => {
             <img
               src="/assets/icons/logo.svg"
               alt="logo"
-              width={40}
-              height={40}
+              width={28}
+              height={28}
             />
-            <h2 className="text-3xl font-bold text-violet-600">React Posts</h2>
+            <h2 className="text-2xl font-bold text-violet-600">React Posts</h2>
           </div>
 
           <h2 className="mt-5 text-2xl font-bold">Create a new account</h2>
@@ -71,7 +107,7 @@ const SignUpForm = () => {
                 <FormControl>
                   <Input
                     type="text"
-                    placeholder="John"
+                    placeholder="John Doe"
                     className="h-12 bg-dark-4 border-none placeholder:text-light-4 focus-visible:ring-1 focus-visible:ring-offset-1 ring-offset-light-3"
                     {...field}
                   />
@@ -90,7 +126,7 @@ const SignUpForm = () => {
                 <FormControl>
                   <Input
                     type="text"
-                    placeholder="john123"
+                    placeholder="jdoe"
                     className="h-12 bg-dark-4 border-none placeholder:text-light-4 focus-visible:ring-1 focus-visible:ring-offset-1 ring-offset-light-3"
                     {...field}
                   />
@@ -141,7 +177,7 @@ const SignUpForm = () => {
             type="submit"
             className="mt-4 flex gap-2 bg-primary-500 hover:bg-primary-600 text-light-1 font-medium"
           >
-            {isLoading ? (
+            {isCreatingUser ? (
               <div className="flex justify-center items-center gap-2">
                 <Loader />
                 <span className="font-medium">Loading...</span>
