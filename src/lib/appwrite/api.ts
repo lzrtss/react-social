@@ -1,7 +1,7 @@
 import { ID, Query } from 'appwrite';
 
-import { account, appwriteConfig, avatars, databases } from './config';
-import { INewUser } from '@/types';
+import { account, appwriteConfig, avatars, databases, storage } from './config';
+import { INewPost, INewUser } from '@/types';
 
 export const saveUserToDB = async (user: {
   accountId: string;
@@ -60,6 +60,32 @@ export const createUser = async (user: INewUser) => {
   }
 };
 
+export const getCurrentUser = async () => {
+  try {
+    const currentAccount = await account.get();
+
+    if (!currentAccount) {
+      throw new Error('Failed to get current user.');
+    }
+
+    const currentUser = await databases.listDocuments(
+      appwriteConfig.databaseId,
+      appwriteConfig.usersCollectionId,
+      [Query.equal('accountId', currentAccount.$id)],
+    );
+
+    if (!currentUser) {
+      throw new Error('Failed to get current user.');
+    }
+
+    return currentUser.documents[0];
+  } catch (error) {
+    console.log(error);
+
+    return null;
+  }
+};
+
 export const signIn = async (credentials: {
   email: string;
   password: string;
@@ -86,28 +112,136 @@ export const signOut = async () => {
   }
 };
 
-export const getCurrentUser = async () => {
+export const uploadFile = async (file: File) => {
   try {
-    const currentAccount = await account.get();
-
-    if (!currentAccount) {
-      throw new Error('Failed to get current user.');
-    }
-
-    const currentUser = await databases.listDocuments(
-      appwriteConfig.databaseId,
-      appwriteConfig.usersCollectionId,
-      [Query.equal('accountId', currentAccount.$id)],
+    const uploadedFile = await storage.createFile(
+      appwriteConfig.storageId,
+      ID.unique(),
+      file,
     );
 
-    if (!currentUser) {
-      throw new Error('Failed to get current user.');
-    }
-
-    return currentUser.documents[0];
+    return uploadedFile;
   } catch (error) {
     console.log(error);
+  }
+};
 
-    return null;
+export const getFilePreview = (fileId: string) => {
+  try {
+    const fileUrl = storage.getFilePreview(
+      appwriteConfig.storageId,
+      fileId,
+      2000,
+      2000,
+      'top',
+      100,
+    );
+
+    return fileUrl;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const deleteFile = async (fileId: string) => {
+  try {
+    const result = await storage.deleteFile(appwriteConfig.storageId, fileId);
+
+    return result;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const saveFileToDB = async ({
+  author,
+  caption,
+  location,
+  imageId,
+  imageUrl,
+  tags,
+}: {
+  author: string;
+  caption: string;
+  location?: string;
+  imageId: string;
+  imageUrl?: URL;
+  tags?: string[];
+}) => {
+  try {
+    const newPost = await databases.createDocument(
+      appwriteConfig.databaseId,
+      appwriteConfig.postsCollectionId,
+      ID.unique(),
+      {
+        author,
+        caption,
+        location,
+        imageId,
+        imageUrl,
+        tags,
+      },
+    );
+
+    return newPost;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const createPost = async (post: INewPost) => {
+  try {
+    const uploadedFile = await uploadFile(post.file[0]);
+
+    if (!uploadedFile) {
+      throw new Error('Failed to upload file.');
+    }
+
+    const fileUrl = getFilePreview(uploadedFile.$id);
+
+    if (!fileUrl) {
+      deleteFile(uploadedFile.$id);
+
+      throw new Error('Failed to get file preview.');
+    }
+
+    const tags = post.tags?.replace(/ /g, '').split(',') || [];
+
+    const newPost = await saveFileToDB({
+      author: post.userId,
+      caption: post.caption,
+      location: post.location,
+      imageId: uploadedFile.$id,
+      imageUrl: fileUrl,
+      tags,
+    });
+
+    if (!newPost) {
+      deleteFile(uploadedFile.$id);
+
+      throw new Error('Failed to save file');
+    }
+
+    return newPost;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getRecentPosts = async () => {
+  try {
+    const recentPosts = await databases.listDocuments(
+      appwriteConfig.databaseId,
+      appwriteConfig.postsCollectionId,
+      [Query.orderDesc('$createdAt'), Query.limit(20)],
+    );
+
+    if (!recentPosts) {
+      throw new Error('Failed to fetch posts');
+    }
+
+    return recentPosts;
+  } catch (error) {
+    console.log(error);
   }
 };

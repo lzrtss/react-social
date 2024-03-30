@@ -1,4 +1,4 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -13,19 +13,15 @@ import {
   FormLabel,
   FormMessage,
   Input,
-  useToast,
 } from '@/components/ui';
 import { signInValidationSchema } from '@/lib/validation';
-import { useSignIn } from '@/lib/react-query/queries';
-import { useUserContext } from '@/context/AuthContext';
 
-const SignInForm = () => {
-  const navigate = useNavigate();
-  const { toast } = useToast();
-  const { checkAuthenticatedUser, isLoading: iLoadingUser } = useUserContext();
+interface SignInFormProps {
+  isLoading: boolean;
+  onSubmit: (values: z.infer<typeof signInValidationSchema>) => void;
+}
 
-  const { mutateAsync: signIn } = useSignIn();
-
+const SignInForm = ({ isLoading, onSubmit }: SignInFormProps) => {
   const form = useForm<z.infer<typeof signInValidationSchema>>({
     resolver: zodResolver(signInValidationSchema),
     defaultValues: {
@@ -34,34 +30,9 @@ const SignInForm = () => {
     },
   });
 
-  const onSubmit = async (values: z.infer<typeof signInValidationSchema>) => {
-    const session = await signIn({
-      email: values.email,
-      password: values.password,
-    });
-
-    if (!session) {
-      return toast({
-        title: '[ SESSION ] Failed to sign in. Please try again.',
-      });
-    }
-
-    const isLoggedIn = await checkAuthenticatedUser();
-
-    if (isLoggedIn) {
-      form.reset();
-
-      navigate('/');
-    } else {
-      return toast({
-        title: '[IS_LOGGED_IN] Failed to sign in. Please try again.',
-      });
-    }
-  };
-
   return (
     <Form {...form}>
-      <div className="sm:420 flex flex-col justify-center items-center">
+      <div className="sm:w-420 flex flex-col justify-center items-center">
         <div className="flex flex-col items-center">
           <div className="flex items-center gap-2">
             <img
@@ -126,7 +97,7 @@ const SignInForm = () => {
             type="submit"
             className="mt-4 flex gap-2 bg-primary-500 hover:bg-primary-600 text-light-1 font-medium"
           >
-            {iLoadingUser ? (
+            {isLoading ? (
               <div className="flex justify-center items-center gap-2">
                 <Loader />
                 <span className="font-medium">Loading...</span>

@@ -1,7 +1,7 @@
 import { Routes, Route } from 'react-router-dom';
 
 import { Toaster } from '@/components/ui';
-import { SignInForm, SignUpForm } from './_auth/forms';
+import { SignIn, SignUp } from './_auth/pages';
 import { AllUsers, CreatePost, Explore, Home, Saved } from './_root/pages';
 import AuthLayout from './_auth/AuthLayout';
 import RootLayout from './_root/RootLayout';
@@ -11,8 +11,8 @@ const App = () => {
     <main className="h-screen flex">
       <Routes>
         <Route element={<AuthLayout />}>
-          <Route path="/sign-in" element={<SignInForm />} />
-          <Route path="/sign-up" element={<SignUpForm />} />
+          <Route path="/sign-in" element={<SignIn />} />
+          <Route path="/sign-up" element={<SignUp />} />
         </Route>
 
         <Route element={<RootLayout />}>
