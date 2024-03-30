@@ -14,7 +14,7 @@ import {
 } from '@/components/ui/form';
 import { useToast } from '@/components/ui/use-toast';
 import { Input } from '@/components/ui/input';
-import Loader from '@/components/shared/Loader';
+import { Loader } from '@/components/shared';
 import { signUpValidationSchema } from '@/lib/validation';
 import { useCreateUser, useSignIn } from '@/lib/react-query/queries';
 import { useUserContext } from '@/context/AuthContext';
@@ -83,7 +83,7 @@ const SignUpForm = () => {
               width={28}
               height={28}
             />
-            <h2 className="text-2xl font-bold text-violet-600">React Posts</h2>
+            <h2 className="text-2xl font-bold text-violet-100">React Posts</h2>
           </div>
 
           <h2 className="mt-5 text-2xl font-bold">Create a new account</h2>

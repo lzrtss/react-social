@@ -1,10 +1,10 @@
 import { Routes, Route } from 'react-router-dom';
-import { Toaster } from '@/components/ui/toaster';
 
+import { Toaster } from '@/components/ui';
 import { SignInForm, SignUpForm } from './_auth/forms';
 import { Home } from './_root/pages';
 import AuthLayout from './_auth/AuthLayout';
-import RootLayout from './_root/pages/RootLayout';
+import RootLayout from './_root/RootLayout';
 
 const App = () => {
   return (

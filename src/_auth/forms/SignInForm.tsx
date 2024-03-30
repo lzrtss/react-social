@@ -3,18 +3,18 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
-import { Button } from '@/components/ui/button';
+import { Loader } from '@/components/shared';
 import {
+  Button,
   Form,
   FormControl,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form';
-import { useToast } from '@/components/ui/use-toast';
-import { Input } from '@/components/ui/input';
-import Loader from '@/components/shared/Loader';
+  Input,
+  useToast,
+} from '@/components/ui';
 import { signInValidationSchema } from '@/lib/validation';
 import { useSignIn } from '@/lib/react-query/queries';
 import { useUserContext } from '@/context/AuthContext';
@@ -70,7 +70,7 @@ const SignInForm = () => {
               width={28}
               height={28}
             />
-            <h2 className="text-2xl font-bold text-violet-600">React Posts</h2>
+            <h2 className="text-2xl font-bold text-violet-100">React Posts</h2>
           </div>
 
           <h2 className="mt-5 text-2xl font-bold">Sign in to your account</h2>

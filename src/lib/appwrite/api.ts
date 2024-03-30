@@ -76,6 +76,16 @@ export const signIn = async (credentials: {
   }
 };
 
+export const signOut = async () => {
+  try {
+    const session = await account.deleteSession('current');
+
+    return session;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export const getCurrentUser = async () => {
   try {
     const currentAccount = await account.get();
@@ -83,8 +93,6 @@ export const getCurrentUser = async () => {
     if (!currentAccount) {
       throw new Error('Failed to get current user.');
     }
-
-    console.log('[API] ACCOUNT ID:', currentAccount.$id);
 
     const currentUser = await databases.listDocuments(
       appwriteConfig.databaseId,
