@@ -2,7 +2,7 @@ import { Routes, Route } from 'react-router-dom';
 
 import { Toaster } from '@/components/ui';
 import { SignInForm, SignUpForm } from './_auth/forms';
-import { Home } from './_root/pages';
+import { AllUsers, CreatePost, Explore, Home, Saved } from './_root/pages';
 import AuthLayout from './_auth/AuthLayout';
 import RootLayout from './_root/RootLayout';
 
@@ -17,6 +17,10 @@ const App = () => {
 
         <Route element={<RootLayout />}>
           <Route index element={<Home />} />
+          <Route path="/all-users" element={<AllUsers />} />
+          <Route path="/create-post" element={<CreatePost />} />
+          <Route path="/explore" element={<Explore />} />
+          <Route path="/saved" element={<Saved />} />
         </Route>
       </Routes>
 

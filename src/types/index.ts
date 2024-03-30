@@ -22,3 +22,9 @@ export interface IUpdateUser {
   imageUrl: URL | string;
   file: File[];
 }
+
+export interface INavLink {
+  imgURL: string;
+  route: string;
+  label: string;
+}

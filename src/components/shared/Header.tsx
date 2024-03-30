@@ -32,8 +32,8 @@ const Header = () => {
           >
             <img
               src="/assets/icons/logout.svg"
-              width={32}
-              height={32}
+              width={24}
+              height={24}
               alt="logout"
             />
           </Button>
