@@ -13,7 +13,7 @@ const AppLogo = ({ className, height = 24, width = 24 }: AppLogoProps) => {
         width={width}
         alt="logo"
       />{' '}
-      <span className={`text-xl ${className}`}>React Social</span>
+      <h1 className={`text-xl font-semibold ${className}`}>React Posts</h1>
     </div>
   );
 };

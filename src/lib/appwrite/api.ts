@@ -245,3 +245,85 @@ export const getRecentPosts = async () => {
     console.log(error);
   }
 };
+
+export const likePost = async (postId: string, likesArray: string[]) => {
+  try {
+    const updatedPost = await databases.updateDocument(
+      appwriteConfig.databaseId,
+      appwriteConfig.postsCollectionId,
+      postId,
+      {
+        likes: likesArray,
+      },
+    );
+
+    if (!updatedPost) {
+      throw new Error('Failed to like the post');
+    }
+
+    return updatedPost;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const unLikePost = async (postId: string, likesArray: string[]) => {
+  try {
+    const updatedPost = await databases.updateDocument(
+      appwriteConfig.databaseId,
+      appwriteConfig.postsCollectionId,
+      postId,
+      {
+        likes: likesArray,
+      },
+    );
+
+    if (!updatedPost) {
+      throw new Error('Failed to like the post');
+    }
+
+    return updatedPost;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const savePost = async (postId: string, userId: string) => {
+  try {
+    const updatedPost = await databases.createDocument(
+      appwriteConfig.databaseId,
+      appwriteConfig.savesCollectionId,
+      ID.unique(),
+      {
+        user: userId,
+        post: postId,
+      },
+    );
+
+    if (!updatedPost) {
+      throw new Error('Failed to save the post');
+    }
+
+    return updatedPost;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const unSavePost = async (postId: string) => {
+  try {
+    const statusCode = await databases.deleteDocument(
+      appwriteConfig.databaseId,
+      appwriteConfig.savesCollectionId,
+      postId,
+    );
+
+    if (!statusCode) {
+      throw new Error('Failed to unsave the post');
+    }
+
+    return statusCode;
+  } catch (error) {
+    console.log(error);
+  }
+};

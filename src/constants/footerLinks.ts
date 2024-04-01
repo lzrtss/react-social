@@ -10,7 +10,7 @@ export const footerLinks = [
     label: 'Explore',
   },
   {
-    imgURL: '/assets/icons/saved.svg',
+    imgURL: '/assets/icons/save.svg',
     route: '/saved',
     label: 'Saved',
   },
