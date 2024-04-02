@@ -13,6 +13,10 @@ const CreatePost = () => {
   const { user } = useUserContext();
   const { toast } = useToast();
 
+  const handleCancel = () => {
+    navigate(-1);
+  };
+
   const handleSubmit = async (values: z.infer<typeof postValidationSchema>) => {
     const newPost = await createPost({
       ...values,
@@ -21,7 +25,7 @@ const CreatePost = () => {
 
     if (!newPost) {
       return toast({
-        title: 'Something went wrong... Please try again.',
+        title: 'Failed to create post. Please try again.',
       });
     }
 
@@ -43,7 +47,11 @@ const CreatePost = () => {
           </h2>
         </div>
 
-        <PostForm isLoading={isLoading} onSubmit={handleSubmit} />
+        <PostForm
+          isLoading={isLoading}
+          onCancel={handleCancel}
+          onSubmit={handleSubmit}
+        />
       </div>
     </div>
   );

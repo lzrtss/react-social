@@ -1,7 +1,7 @@
 import { ID, Query } from 'appwrite';
 
 import { account, appwriteConfig, avatars, databases, storage } from './config';
-import { INewPost, INewUser } from '@/types';
+import { INewPost, INewUser, IUpdatePost } from '@/types';
 
 export const saveUserToDB = async (user: {
   accountId: string;
@@ -189,6 +189,42 @@ export const saveFileToDB = async ({
   }
 };
 
+export const getRecentPosts = async () => {
+  try {
+    const recentPosts = await databases.listDocuments(
+      appwriteConfig.databaseId,
+      appwriteConfig.postsCollectionId,
+      [Query.orderDesc('$createdAt'), Query.limit(20)],
+    );
+
+    if (!recentPosts) {
+      throw new Error('Failed to fetch posts');
+    }
+
+    return recentPosts;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getPostById = async (postId: string) => {
+  try {
+    const foundPost = await databases.getDocument(
+      appwriteConfig.databaseId,
+      appwriteConfig.postsCollectionId,
+      postId,
+    );
+
+    if (!foundPost) {
+      throw new Error('Failed to find the requested post');
+    }
+
+    return foundPost;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export const createPost = async (post: INewPost) => {
   try {
     const uploadedFile = await uploadFile(post.file[0]);
@@ -200,7 +236,7 @@ export const createPost = async (post: INewPost) => {
     const fileUrl = getFilePreview(uploadedFile.$id);
 
     if (!fileUrl) {
-      deleteFile(uploadedFile.$id);
+      await deleteFile(uploadedFile.$id);
 
       throw new Error('Failed to get file preview.');
     }
@@ -217,9 +253,9 @@ export const createPost = async (post: INewPost) => {
     });
 
     if (!newPost) {
-      deleteFile(uploadedFile.$id);
+      await deleteFile(uploadedFile.$id);
 
-      throw new Error('Failed to save file');
+      throw new Error('Failed to create file');
     }
 
     return newPost;
@@ -228,19 +264,73 @@ export const createPost = async (post: INewPost) => {
   }
 };
 
-export const getRecentPosts = async () => {
-  try {
-    const recentPosts = await databases.listDocuments(
-      appwriteConfig.databaseId,
-      appwriteConfig.postsCollectionId,
-      [Query.orderDesc('$createdAt'), Query.limit(20)],
-    );
+export const updatePost = async (post: IUpdatePost) => {
+  const isFileUpdating = post.file.length > 0;
 
-    if (!recentPosts) {
-      throw new Error('Failed to fetch posts');
+  try {
+    let image = {
+      imageUrl: post.imageUrl,
+      imageId: post.imageId,
+    };
+
+    if (isFileUpdating) {
+      const uploadedFile = await uploadFile(post.file[0]);
+
+      if (!uploadedFile) {
+        throw new Error('Failed to upload file.');
+      }
+
+      const fileUrl = getFilePreview(uploadedFile.$id);
+
+      if (!fileUrl) {
+        await deleteFile(uploadedFile.$id);
+
+        throw new Error('Failed to get file preview.');
+      }
+
+      image = { ...image, imageUrl: fileUrl, imageId: uploadedFile.$id };
     }
 
-    return recentPosts;
+    const tags = post.tags?.replace(/ /g, '').split(',') || [];
+
+    const updatedPost = await databases.updateDocument(
+      appwriteConfig.databaseId,
+      appwriteConfig.postsCollectionId,
+      post.postId,
+      {
+        caption: post.caption,
+        location: post.location,
+        imageId: image.imageId,
+        imageUrl: image.imageUrl,
+        tags,
+      },
+    );
+
+    if (!updatedPost) {
+      await deleteFile(post.imageId);
+
+      throw new Error('Failed to update file');
+    }
+
+    return updatedPost;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const deletePost = async (postId: string, imageId: string) => {
+  if (!postId || !imageId) {
+    throw new Error('No post id or image id provided.');
+  }
+
+  try {
+    await databases.deleteDocument(
+      appwriteConfig.databaseId,
+      appwriteConfig.postsCollectionId,
+      postId,
+    );
+
+    return { status: 'ok' };
   } catch (error) {
     console.log(error);
   }

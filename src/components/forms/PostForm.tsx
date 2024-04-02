@@ -20,17 +20,18 @@ import { postValidationSchema } from '@/lib/validation';
 interface PostFormProps {
   isLoading: boolean;
   post?: Models.Document;
+  onCancel: () => void;
   onSubmit: (values: z.infer<typeof postValidationSchema>) => void;
 }
 
-const PostForm = ({ isLoading, post, onSubmit }: PostFormProps) => {
+const PostForm = ({ isLoading, post, onCancel, onSubmit }: PostFormProps) => {
   const form = useForm<z.infer<typeof postValidationSchema>>({
     resolver: zodResolver(postValidationSchema),
     defaultValues: {
       caption: post ? post.caption : '',
       file: [],
       location: post ? post.location : '',
-      tags: post ? post.tags.join(',') : '',
+      tags: post ? post.tags.join(', ') : '',
     },
   });
 
@@ -115,11 +116,13 @@ const PostForm = ({ isLoading, post, onSubmit }: PostFormProps) => {
           <Button
             type="button"
             className="w-[140px] flex gap-2 bg-dark-4 px-5 text-light-1"
+            onClick={onCancel}
           >
             Cancel
           </Button>
           <Button
             type="submit"
+            disabled={isLoading}
             className="w-[140px] flex gap-2 bg-primary-500 hover:bg-primary-500 text-light-1 whitespace-nowrap"
           >
             {isLoading ? (

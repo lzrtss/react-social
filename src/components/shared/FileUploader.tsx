@@ -9,7 +9,7 @@ interface FileUploaderProps {
 
 const FileUploader = ({ fieldChange, mediaUrl }: FileUploaderProps) => {
   const [files, setFiles] = useState<File[]>([]);
-  const [fileUrl, setFileUrl] = useState('');
+  const [fileUrl, setFileUrl] = useState(() => mediaUrl);
 
   const onDrop = useCallback(
     (acceptedFiles: FileWithPath[]) => {
@@ -36,7 +36,7 @@ const FileUploader = ({ fieldChange, mediaUrl }: FileUploaderProps) => {
             <img
               src={fileUrl}
               alt="image"
-              className="h-80 lg:h-[480px] w-full rounded-lg object-contain object-top"
+              className="h-80 lg:h-[480px] w-full rounded-lg object-cover object-top"
             />
           </div>
           <p className="w-full p-4 text-light-4 text-center small-regular border-t border-t-dark-4">
