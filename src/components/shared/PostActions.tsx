@@ -16,16 +16,15 @@ interface PostActionsProps {
 }
 
 const PostActions = ({ post, userId }: PostActionsProps) => {
-  const likesList = post.likes.map((user: Models.Document) => user.$id);
-
-  const [likes, setLikes] = useState(likesList);
+  const [likes, setLikes] = useState(() =>
+    post.likes.map((user: Models.Document) => user.$id),
+  );
   const [isSaved, setIsSaved] = useState(false);
 
   const { mutate: likePost } = useLikePost();
   const { mutate: savePost, isPending: isSaving } = useSavePost();
   const { mutate: unSavePost, isPending: isUnSaving } = useUnSavePost();
-
-  const { data: currentUser } = useGetCurrentUser();
+  const { data: currentUser, isLoading: isFetching } = useGetCurrentUser();
 
   const savedPost = currentUser?.save.find(
     (record: Models.Document) => record.post.$id === post.$id,
@@ -35,7 +34,7 @@ const PostActions = ({ post, userId }: PostActionsProps) => {
     setIsSaved(savedPost ? true : false);
   }, [currentUser]);
 
-  const handleLike = (e: React.MouseEvent) => {
+  const handleLike: React.MouseEventHandler<HTMLImageElement> = (e) => {
     e.stopPropagation();
 
     let updatedLikes = [...likes];
@@ -51,7 +50,7 @@ const PostActions = ({ post, userId }: PostActionsProps) => {
     likePost({ postId: post.$id, likesArray: updatedLikes });
   };
 
-  const handleSave = (e: React.MouseEvent) => {
+  const handleSave: React.MouseEventHandler<HTMLImageElement> = (e) => {
     e.stopPropagation();
 
     if (savedPost) {
@@ -82,11 +81,13 @@ const PostActions = ({ post, userId }: PostActionsProps) => {
           className="cursor-pointer"
           onClick={handleLike}
         />
-        <span className=" max-md:text-sm">{likes.length}</span>
+        <span className=" max-md:text-sm">
+          {likes.length ? likes.length : null}
+        </span>
       </div>
 
       <div className="flex gap-2 mr-2">
-        {isSaving || isUnSaving ? (
+        {isFetching || isSaving || isUnSaving ? (
           <Loader />
         ) : (
           <img

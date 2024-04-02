@@ -17,7 +17,7 @@ const PostCard = ({ post }: PostCardProps) => {
   }
 
   return (
-    <div className="w-full max-w-screen-sm p-5 lg:p-7 bg-dark-2 rounded-3xl border border-dark-4">
+    <div className="w-full max-w-screen-sm p-5 lg:p-7 bg-dark-2 rounded-3xl border border-dark-4 hover:border-dark-3">
       <div className="flex justify-between items-center">
         <div className="flex items-center gap-3">
           <Link to={`/profile/${post.author.$id}`}>
@@ -32,7 +32,7 @@ const PostCard = ({ post }: PostCardProps) => {
 
           <div className="flex flex-col">
             <p className="font-medium lg:font-semibold text-light-1">
-              {post.author.name}
+              <Link to={`/profile/${post.author.$id}`}>{post.author.name}</Link>
             </p>
 
             <div className="flex justify-center items-center gap-2 text-light-3">
@@ -57,8 +57,8 @@ const PostCard = ({ post }: PostCardProps) => {
 
       <Link to={`/posts/${post.$id}`}>
         <div className="py-5 text-sm font-medium lg:text-[16px]">
-          <p className="">{post.caption}</p>
-          <ul className="flex gap-1 mt-2">
+          <p className="mb-4">{post.caption}</p>
+          <ul className="flex gap-1">
             {post.tags.map((tag: string) => (
               <li key={tag} className="text-light-3">
                 #{tag}
