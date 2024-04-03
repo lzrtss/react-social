@@ -5,7 +5,7 @@ import { AppLogo } from '@/components/shared';
 import { Button } from '@/components/ui';
 import { useSignOut } from '@/lib/react-query/queries';
 import { useUserContext } from '@/context/AuthContext';
-import { sidebarLinks } from '@/constants';
+import { SIDEBAR_LINKS } from '@/constants';
 import { INavLink } from '@/types';
 
 const MainNavbar = () => {
@@ -49,7 +49,7 @@ const MainNavbar = () => {
         </Link>
 
         <ul className="flex flex-col gap-6">
-          {sidebarLinks.map((link: INavLink) => {
+          {SIDEBAR_LINKS.map((link: INavLink) => {
             const isActive = pathname === link.route;
 
             return (

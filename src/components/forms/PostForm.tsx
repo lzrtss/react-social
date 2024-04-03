@@ -47,7 +47,7 @@ const PostForm = ({ isLoading, post, onCancel, onSubmit }: PostFormProps) => {
           name="caption"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Caption</FormLabel>
+              <FormLabel>Caption *</FormLabel>
               <FormControl>
                 <Textarea
                   className="h-36 bg-dark-3 rounded-xl border-none focus-visible:ring-1 focus-visible:ring-offset-1 ring-offset-light-3 custom-scrollbar"
@@ -64,7 +64,7 @@ const PostForm = ({ isLoading, post, onCancel, onSubmit }: PostFormProps) => {
           name="file"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Add Photo</FormLabel>
+              <FormLabel>Add Photo (.jpg, .png, .svg, 10Mb max) *</FormLabel>
               <FormControl>
                 <FileUploader
                   fieldChange={field.onChange}

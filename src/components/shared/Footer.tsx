@@ -1,6 +1,6 @@
 import { Link, useLocation } from 'react-router-dom';
 
-import { footerLinks } from '@/constants';
+import { FOOTER_LINKS } from '@/constants';
 import { INavLink } from '@/types';
 
 const Footer = () => {
@@ -9,7 +9,7 @@ const Footer = () => {
   return (
     <footer className="sticky bottom-0 w-full px-5 py-4 bg-dark-2 z-50 md:hidden">
       <ul className="flex justify-between items-center">
-        {footerLinks.map((link: INavLink) => {
+        {FOOTER_LINKS.map((link: INavLink) => {
           const isActive = pathname === link.route;
 
           return (

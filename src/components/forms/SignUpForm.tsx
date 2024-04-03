@@ -34,7 +34,7 @@ const SignUpForm = ({ isLoading, onSubmit }: SignUpFormProps) => {
 
   return (
     <Form {...form}>
-      <div className="sm:w-420 flex flex-col justify-center items-center">
+      <div className="sm:w-420 flex flex-col justify-center items-center p-5 lg:p-7 bg-dark-2 rounded-3xl border border-dark-4">
         <div className="flex flex-col items-center">
           <div className="flex justify-center items-center gap-2">
             <img
@@ -49,7 +49,7 @@ const SignUpForm = ({ isLoading, onSubmit }: SignUpFormProps) => {
           <h2 className="mt-5 text-2xl font-bold">Create a new account</h2>
 
           <p className="mt-2 text-light-3">
-            Enter your info to continue using React Posts
+            Enter your info to use React Posts
           </p>
         </div>
 

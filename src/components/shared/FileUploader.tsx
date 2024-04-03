@@ -1,6 +1,7 @@
 import { useCallback, useState } from 'react';
 import { FileWithPath, useDropzone } from 'react-dropzone';
-import { Button } from '../ui';
+
+import { Button } from '@/components/ui';
 
 interface FileUploaderProps {
   fieldChange: (FILES: File[]) => void;
@@ -19,9 +20,10 @@ const FileUploader = ({ fieldChange, mediaUrl }: FileUploaderProps) => {
     },
     [files],
   );
+
   const { getRootProps, getInputProps } = useDropzone({
     onDrop,
-    accept: { 'image/*': ['.jpeg', '.jpg', '.png', '.svg'] },
+    accept: { 'image/*': ['.jpeg', '.jpg', '.png'] },
   });
 
   return (

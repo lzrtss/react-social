@@ -18,9 +18,14 @@ export const saveUserToDB = async (user: {
       user,
     );
 
+    if (!newUser) {
+      throw new Error('Failed to create new user');
+    }
+
     return newUser;
-  } catch (error) {
+  } catch (error: any) {
     console.log(error);
+    throw new Error(error.message);
 
     return error;
   }
@@ -53,10 +58,10 @@ export const createUser = async (user: INewUser) => {
     });
 
     return newUser;
-  } catch (error) {
+  } catch (error: any) {
     console.log(error);
 
-    return error;
+    throw new Error(error.message);
   }
 };
 
@@ -79,10 +84,10 @@ export const getCurrentUser = async () => {
     }
 
     return currentUser.documents[0];
-  } catch (error) {
+  } catch (error: any) {
     console.log(error);
 
-    return null;
+    throw new Error(error.message);
   }
 };
 
@@ -96,9 +101,15 @@ export const signIn = async (credentials: {
       credentials.password,
     );
 
+    if (!session) {
+      throw new Error('Failed to sign.');
+    }
+
     return session;
-  } catch (error) {
+  } catch (error: any) {
     console.log(error);
+
+    throw new Error(error.message);
   }
 };
 
@@ -107,8 +118,10 @@ export const signOut = async () => {
     const session = await account.deleteSession('current');
 
     return session;
-  } catch (error) {
+  } catch (error: any) {
     console.log(error);
+
+    throw new Error(error.message);
   }
 };
 
@@ -120,9 +133,15 @@ export const uploadFile = async (file: File) => {
       file,
     );
 
+    if (!uploadedFile) {
+      throw new Error('Failed to upload file.');
+    }
+
     return uploadedFile;
-  } catch (error) {
+  } catch (error: any) {
     console.log(error);
+
+    throw new Error(error.message);
   }
 };
 
@@ -138,8 +157,10 @@ export const getFilePreview = (fileId: string) => {
     );
 
     return fileUrl;
-  } catch (error) {
+  } catch (error: any) {
     console.log(error);
+
+    throw new Error(error.message);
   }
 };
 
@@ -147,9 +168,15 @@ export const deleteFile = async (fileId: string) => {
   try {
     const result = await storage.deleteFile(appwriteConfig.storageId, fileId);
 
+    if (!result) {
+      throw new Error('Failed to delete file.');
+    }
+
     return result;
-  } catch (error) {
+  } catch (error: any) {
     console.log(error);
+
+    throw new Error(error.message);
   }
 };
 
@@ -183,9 +210,15 @@ export const saveFileToDB = async ({
       },
     );
 
+    if (!newPost) {
+      throw new Error('Failed to create new post.');
+    }
+
     return newPost;
-  } catch (error) {
+  } catch (error: any) {
     console.log(error);
+
+    throw new Error(error.message);
   }
 };
 
@@ -202,8 +235,10 @@ export const getRecentPosts = async () => {
     }
 
     return recentPosts;
-  } catch (error) {
+  } catch (error: any) {
     console.log(error);
+
+    throw new Error(error.message);
   }
 };
 
@@ -220,8 +255,10 @@ export const getPostById = async (postId: string) => {
     }
 
     return foundPost;
-  } catch (error) {
+  } catch (error: any) {
     console.log(error);
+
+    throw new Error(error.message);
   }
 };
 
@@ -259,8 +296,10 @@ export const createPost = async (post: INewPost) => {
     }
 
     return newPost;
-  } catch (error) {
+  } catch (error: any) {
     console.log(error);
+
+    throw new Error(error.message);
   }
 };
 
@@ -313,8 +352,10 @@ export const updatePost = async (post: IUpdatePost) => {
     }
 
     return updatedPost;
-  } catch (error) {
+  } catch (error: any) {
     console.log(error);
+
+    throw new Error(error.message);
   }
 };
 
@@ -331,8 +372,10 @@ export const deletePost = async (postId: string, imageId: string) => {
     );
 
     return { status: 'ok' };
-  } catch (error) {
+  } catch (error: any) {
     console.log(error);
+
+    throw new Error(error.message);
   }
 };
 
@@ -352,8 +395,10 @@ export const likePost = async (postId: string, likesArray: string[]) => {
     }
 
     return updatedPost;
-  } catch (error) {
+  } catch (error: any) {
     console.log(error);
+
+    throw new Error(error.message);
   }
 };
 
@@ -373,8 +418,10 @@ export const unLikePost = async (postId: string, likesArray: string[]) => {
     }
 
     return updatedPost;
-  } catch (error) {
+  } catch (error: any) {
     console.log(error);
+
+    throw new Error(error.message);
   }
 };
 
@@ -395,8 +442,10 @@ export const savePost = async (postId: string, userId: string) => {
     }
 
     return updatedPost;
-  } catch (error) {
+  } catch (error: any) {
     console.log(error);
+
+    throw new Error(error.message);
   }
 };
 
@@ -413,7 +462,9 @@ export const unSavePost = async (postId: string) => {
     }
 
     return statusCode;
-  } catch (error) {
+  } catch (error: any) {
     console.log(error);
+
+    throw new Error(error.message);
   }
 };

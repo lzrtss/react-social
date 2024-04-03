@@ -18,7 +18,7 @@ import RootLayout from './_root/RootLayout';
 
 const App = () => {
   return (
-    <main className="h-screen flex">
+    <main className="min-h-screen flex">
       <Routes>
         <Route element={<AuthLayout />}>
           <Route path="/sign-in" element={<SignIn />} />
