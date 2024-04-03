@@ -1,10 +1,11 @@
 interface LoaderProps {
+  className?: string;
   size?: number;
 }
 
-const Loader = ({ size = 24 }: LoaderProps) => {
+const Loader = ({ className = '', size = 24 }: LoaderProps) => {
   return (
-    <div className="w-full flex justify-center items-center">
+    <div className={className}>
       <img
         src="/assets/icons/loader.svg"
         alt="loader"

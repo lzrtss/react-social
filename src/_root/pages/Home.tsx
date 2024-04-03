@@ -19,9 +19,7 @@ const Home = () => {
           </h2>
 
           {isFetchingPosts && !posts ? (
-            <div className="h-[70vh] flex justify-center items-center">
-              <Loader size={48} />
-            </div>
+            <Loader className="mt-10" size={48} />
           ) : (
             <ul className="flex flex-col flex-1 gap-9 w-full">
               {posts?.documents.map((post: Models.Document) => (
