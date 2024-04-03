@@ -4,5 +4,6 @@ export enum QUERY_KEYS {
   GET_POST_BY_ID = 'GetPostById',
   GET_POSTS = 'GetPosts',
   GET_RECENT_POSTS = 'getRecentPosts',
-  GET_SEARCH_POSTS = 'searchPosts',
+  GET_SEARCH_POSTS = 'getSearchPosts',
+  GET_USER_POSTS = 'getUserPosts',
 }

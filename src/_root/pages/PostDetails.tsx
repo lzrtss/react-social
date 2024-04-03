@@ -1,17 +1,34 @@
-import { Link, useParams } from 'react-router-dom';
+import { Models } from 'appwrite';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 
-import { Loader, PostActions } from '@/components/shared';
+import { GridPostList, Loader, PostActions } from '@/components/shared';
 import { Button } from '@/components/ui';
-import { useGetPostById } from '@/lib/react-query/queries';
+import {
+  useDeletePost,
+  useGetPostById,
+  useGetUserPosts,
+} from '@/lib/react-query/queries';
 import { useUserContext } from '@/context/AuthContext';
 import { formatDate } from '@/lib/utils';
 
 const PostDetails = () => {
+  const navigate = useNavigate();
   const { id = '' } = useParams();
+  const { mutate: deletePost } = useDeletePost();
   const { data: post, isPending: isFetchingPost } = useGetPostById(id);
+  const { data: userPosts, isLoading: isUserPostLoading } = useGetUserPosts(
+    post?.author.$id,
+  );
   const { user } = useUserContext();
 
-  const handleDeletePost = () => {};
+  const relatedPosts = userPosts?.documents.filter(
+    (userPost: Models.Document) => userPost.$id !== id,
+  );
+
+  const handleDeletePost = () => {
+    deletePost({ postId: id, imageId: post?.imageId });
+    navigate(-1);
+  };
 
   return (
     <div className="container">
@@ -105,6 +122,17 @@ const PostDetails = () => {
           </div>
         </div>
       )}
+
+      <div className="w-full max-w-5xl">
+        <hr className="w-full border border-dark-4/80" />
+
+        <h2 className="w-full my-12 text-lg font-bold">Related Posts</h2>
+        {isUserPostLoading || !relatedPosts ? (
+          <Loader size={48} className="w-full flex justify-center" />
+        ) : (
+          <GridPostList posts={relatedPosts} />
+        )}
+      </div>
     </div>
   );
 };

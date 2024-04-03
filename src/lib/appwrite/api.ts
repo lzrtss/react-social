@@ -262,6 +262,26 @@ export const getPostById = async (postId: string) => {
   }
 };
 
+export const getUserPosts = async (userId?: string) => {
+  if (!userId) {
+    return;
+  }
+
+  try {
+    const post = await databases.listDocuments(
+      appwriteConfig.databaseId,
+      appwriteConfig.postsCollectionId,
+      [Query.equal('author', userId), Query.orderDesc('$createdAt')],
+    );
+
+    if (!post) throw Error;
+
+    return post;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export const createPost = async (post: INewPost) => {
   try {
     const uploadedFile = await uploadFile(post.file[0]);
