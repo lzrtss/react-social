@@ -11,13 +11,13 @@ import { checkIsLiked } from '@/lib/utils';
 import { Loader } from '@/components/shared';
 
 interface PostActionsProps {
-  post: Models.Document;
+  post?: Models.Document;
   userId: string;
 }
 
 const PostActions = ({ post, userId }: PostActionsProps) => {
   const [likes, setLikes] = useState(() =>
-    post.likes.map((user: Models.Document) => user.$id),
+    post?.likes.map((user: Models.Document) => user.$id),
   );
   const [isSaved, setIsSaved] = useState(false);
 
@@ -27,7 +27,7 @@ const PostActions = ({ post, userId }: PostActionsProps) => {
   const { data: currentUser, isLoading: isFetching } = useGetCurrentUser();
 
   const savedPost = currentUser?.save.find(
-    (record: Models.Document) => record.post.$id === post.$id,
+    (record: Models.Document) => record.post.$id === post?.$id,
   );
 
   useEffect(() => {
@@ -47,7 +47,7 @@ const PostActions = ({ post, userId }: PostActionsProps) => {
     }
 
     setLikes(updatedLikes);
-    likePost({ postId: post.$id, likesArray: updatedLikes });
+    likePost({ postId: post?.$id || '', likesArray: updatedLikes });
   };
 
   const handleSave: React.MouseEventHandler<HTMLImageElement> = (e) => {
@@ -58,7 +58,7 @@ const PostActions = ({ post, userId }: PostActionsProps) => {
       unSavePost(savedPost.$id);
     } else {
       savePost({
-        postId: post.$id,
+        postId: post?.$id || '',
         userId,
       });
 
