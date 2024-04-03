@@ -41,6 +41,7 @@ const CreatePost = () => {
             width={36}
             height={36}
             alt="add post"
+            className="invert brightness-0 transition"
           />
           <h2 className="w-full text-2xl font-bold md:text-3xl text-left">
             Create Post

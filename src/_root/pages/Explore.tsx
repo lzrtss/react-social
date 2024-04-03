@@ -68,18 +68,8 @@ const Explore = () => {
         </div>
       </div>
 
-      <div className="w-full max-w-5xl flex justify-between items-center mt-12 mb-8">
+      <div className="w-full max-w-5xl my-8">
         <h3 className="w-full text-xl md:text-2xl font-bold">Trending Posts</h3>
-
-        <div className="px-4 py-2 flex justify-center items-center gap-3 bg-dark-4 rounded-xl cursor-pointer">
-          <p className="text-sm font-medium md:text-[16px] text-light-2">All</p>
-          <img
-            src="/assets/icons/filter.svg"
-            width={24}
-            height={24}
-            alt="filter"
-          />
-        </div>
       </div>
 
       <div className="w-full max-w-5xl flex flex-wrap gap-8">

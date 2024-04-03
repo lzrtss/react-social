@@ -44,7 +44,7 @@ const GridPostList = ({
                       className="bg-dark-4 rounded-full"
                     />
                     <p className="line-clamp-1">
-                      {post.author.name || post.creator.username}
+                      {post.author.name || post.author.username}
                     </p>
                   </div>
                 </Link>
