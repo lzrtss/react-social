@@ -1,3 +1,5 @@
+import { Models } from 'appwrite';
+
 export interface INewUser {
   name: string;
   username: string;

@@ -16,7 +16,10 @@ const PostDetails = () => {
   return (
     <div className="container">
       {isFetchingPost ? (
-        <Loader />
+        <Loader
+          size={48}
+          className="w-full h-full flex justify-center items-center"
+        />
       ) : (
         <div className="w-full max-w-5xl flex flex-col xl:flex-row bg-dark-2 border border-dark-4 rounded-3xl">
           <img

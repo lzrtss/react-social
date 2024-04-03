@@ -468,3 +468,53 @@ export const unSavePost = async (postId: string) => {
     throw new Error(error.message);
   }
 };
+
+export const getInfinitePosts = async ({
+  pageParam,
+}: {
+  pageParam: number;
+}) => {
+  const queries: any[] = [Query.orderDesc('$updatedAt'), Query.limit(10)];
+
+  if (pageParam) {
+    queries.push(Query.cursorAfter(pageParam.toString())); // skips posts that has already been fetched
+  }
+
+  try {
+    const posts = await databases.listDocuments(
+      appwriteConfig.databaseId,
+      appwriteConfig.postsCollectionId,
+      queries,
+    );
+
+    if (!posts) {
+      throw new Error('Failed to fetch the posts');
+    }
+
+    return posts;
+  } catch (error: any) {
+    console.log(error);
+
+    throw new Error(error.message);
+  }
+};
+
+export const getSearchedPosts = async (searchQuery: string) => {
+  try {
+    const posts = await databases.listDocuments(
+      appwriteConfig.databaseId,
+      appwriteConfig.postsCollectionId,
+      [Query.search('caption', searchQuery)],
+    );
+
+    if (!posts) {
+      throw new Error('Failed to search posts');
+    }
+
+    return posts;
+  } catch (error: any) {
+    console.log(error);
+
+    throw new Error(error.message);
+  }
+};

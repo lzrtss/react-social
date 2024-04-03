@@ -58,7 +58,10 @@ const EditPost = () => {
         </div>
 
         {isFetchingPost ? (
-          <Loader className="mt-10" size={48} />
+          <Loader
+            size={48}
+            className="w-full h-full flex justify-center items-center"
+          />
         ) : (
           <PostForm
             isLoading={isUpdatingPost}

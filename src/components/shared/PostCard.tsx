@@ -17,7 +17,7 @@ const PostCard = ({ post }: PostCardProps) => {
   }
 
   return (
-    <div className="w-full max-w-screen-sm p-5 lg:p-7 bg-dark-2 rounded-3xl border border-dark-4 hover:border-neutral-700">
+    <article className="w-full max-w-screen-sm p-5 lg:p-7 bg-dark-2 rounded-3xl border border-dark-4 hover:border-neutral-700">
       <div className="flex justify-between items-center">
         <div className="flex items-center gap-3">
           <Link to={`/profile/${post.author.$id}`}>
@@ -77,7 +77,7 @@ const PostCard = ({ post }: PostCardProps) => {
       </Link>
 
       <PostActions post={post} userId={user.id} />
-    </div>
+    </article>
   );
 };
 

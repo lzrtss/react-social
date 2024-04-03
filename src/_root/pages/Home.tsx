@@ -10,6 +10,15 @@ const Home = () => {
     isError: isErrorPosts,
   } = useGetRecentPosts();
 
+  if (isFetchingPosts) {
+    return (
+      <Loader
+        size={48}
+        className="w-full h-full flex justify-center items-center"
+      />
+    );
+  }
+
   return (
     <div className="flex flex-1">
       <div className="container">
@@ -18,17 +27,13 @@ const Home = () => {
             Recent Posts
           </h2>
 
-          {isFetchingPosts && !posts ? (
-            <Loader className="mt-10" size={48} />
-          ) : (
-            <ul className="flex flex-col flex-1 gap-9 w-full">
-              {posts?.documents.map((post: Models.Document) => (
-                <li key={post.$id}>
-                  <PostCard post={post} />
-                </li>
-              ))}
-            </ul>
-          )}
+          <ul className="flex flex-col flex-1 gap-9 w-full">
+            {posts?.documents.map((post: Models.Document) => (
+              <li key={post.$id}>
+                <PostCard post={post} />
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
     </div>

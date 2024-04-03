@@ -67,7 +67,7 @@ const PostActions = ({ post, userId }: PostActionsProps) => {
   };
 
   return (
-    <div className="flex justify-between items-center z-20">
+    <div className="flex justify-between items-center gap-3 z-20">
       <div className="flex gap-2 ml-2">
         <img
           src={
@@ -81,7 +81,9 @@ const PostActions = ({ post, userId }: PostActionsProps) => {
           className="cursor-pointer"
           onClick={handleLike}
         />
-        <span className=" max-md:text-sm">
+        <span
+          className={`max-md:text-sm ${likes.length ? '' : 'invisible ml-2'}`}
+        >
           {likes.length ? likes.length : null}
         </span>
       </div>
