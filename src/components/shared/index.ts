@@ -7,4 +7,5 @@ export { default as Loader } from './Loader';
 export { default as MainNavbar } from './MainNavbar';
 export { default as PostActions } from './PostActions';
 export { default as PostCard } from './PostCard';
+export { default as ProfileUploader } from './ProfileUploader';
 export { default as SearchResults } from './SearchResults';

@@ -88,7 +88,7 @@ const Explore = () => {
 
       {hasNextPage && !searchQuery ? (
         <div ref={ref} className="mt-10">
-          <Loader size={48} className="" />
+          <Loader size={48} />
         </div>
       ) : null}
     </div>

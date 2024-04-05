@@ -137,14 +137,7 @@ const SignUpForm = ({ isLoading, onSubmit }: SignUpFormProps) => {
             type="submit"
             className="mt-4 flex gap-2 bg-primary-500 hover:bg-primary-600 text-light-1 font-medium"
           >
-            {isLoading ? (
-              <div className="flex justify-center items-center gap-2">
-                <Loader />
-                <span className="font-medium">Loading...</span>
-              </div>
-            ) : (
-              'Sign up'
-            )}
+            {isLoading ? <Loader /> : null} Sign up
           </Button>
         </form>
 

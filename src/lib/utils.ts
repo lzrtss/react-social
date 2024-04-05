@@ -5,6 +5,10 @@ export const cn = (...inputs: ClassValue[]) => {
   return twMerge(clsx(inputs));
 };
 
+export const convertFileToUrl = (file: File) => {
+  return URL.createObjectURL(file);
+};
+
 export const formatDate = (dateString: string): string => {
   const inputDate = new Date(dateString);
   const currentDate = new Date();

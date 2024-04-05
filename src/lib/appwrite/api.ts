@@ -1,7 +1,7 @@
 import { ID, Query } from 'appwrite';
 
 import { account, appwriteConfig, avatars, databases, storage } from './config';
-import { INewPost, INewUser, IUpdatePost } from '@/types';
+import { INewPost, INewUser, IUpdatePost, IUpdateUser } from '@/types';
 
 export const saveUserToDB = async (user: {
   accountId: string;
@@ -88,6 +88,81 @@ export const getCurrentUser = async () => {
     console.log(error);
 
     throw new Error(error.message);
+  }
+};
+
+export const getUserById = async (userId: string) => {
+  try {
+    const user = await databases.getDocument(
+      appwriteConfig.databaseId,
+      appwriteConfig.usersCollectionId,
+      userId,
+    );
+
+    if (!user) {
+      throw new Error('Failed to get user.');
+    }
+
+    return user;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const updateUser = async (user: IUpdateUser) => {
+  const hasFileToUpdate = user.file.length > 0;
+
+  try {
+    let image = {
+      imageUrl: user.imageUrl,
+      imageId: user.imageId,
+    };
+
+    if (hasFileToUpdate) {
+      // Upload new file to appwrite storage
+      const uploadedFile = await uploadFile(user.file[0]);
+      if (!uploadedFile) throw Error;
+
+      // Get new file url
+      const fileUrl = getFilePreview(uploadedFile.$id);
+      if (!fileUrl) {
+        await deleteFile(uploadedFile.$id);
+        throw Error;
+      }
+
+      image = { ...image, imageUrl: fileUrl, imageId: uploadedFile.$id };
+    }
+
+    //  Update user
+    const updatedUser = await databases.updateDocument(
+      appwriteConfig.databaseId,
+      appwriteConfig.usersCollectionId,
+      user.userId,
+      {
+        name: user.name,
+        bio: user.bio,
+        imageUrl: image.imageUrl,
+        imageId: image.imageId,
+      },
+    );
+
+    // Failed to update
+    if (!updatedUser) {
+      // Delete new file that has been recently uploaded
+      if (hasFileToUpdate) {
+        await deleteFile(image.imageId);
+      }
+      throw Error('Failed to upload file.');
+    }
+
+    // Delete old file after successful update
+    if (user.imageId && hasFileToUpdate) {
+      await deleteFile(user.imageId);
+    }
+
+    return updatedUser;
+  } catch (error) {
+    console.log(error);
   }
 };
 

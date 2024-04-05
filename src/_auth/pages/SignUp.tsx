@@ -1,6 +1,4 @@
 import { useNavigate } from 'react-router-dom';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 
 import { SignUpForm } from '@/components/forms';
@@ -18,16 +16,6 @@ const SignUp = () => {
     useCreateUser();
 
   const { mutateAsync: signIn } = useSignIn();
-
-  const form = useForm<z.infer<typeof signUpValidationSchema>>({
-    resolver: zodResolver(signUpValidationSchema),
-    defaultValues: {
-      name: '',
-      username: '',
-      email: '',
-      password: '',
-    },
-  });
 
   const handleSubmit = async (
     values: z.infer<typeof signUpValidationSchema>,
@@ -54,8 +42,6 @@ const SignUp = () => {
     const isLoggedIn = await checkAuthenticatedUser();
 
     if (isLoggedIn) {
-      form.reset();
-
       navigate('/');
     } else {
       return toast({
