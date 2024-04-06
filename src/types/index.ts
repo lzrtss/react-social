@@ -14,6 +14,7 @@ export interface IUser {
   email: string;
   imageUrl: string;
   bio: string;
+  posts: Models.Document[];
 }
 
 export interface IUpdateUser {

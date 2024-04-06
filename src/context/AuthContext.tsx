@@ -20,6 +20,7 @@ export const initialUserState = {
   email: '',
   name: '',
   username: '',
+  posts: [],
 };
 
 const initialAuthState = {
@@ -52,6 +53,7 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
           email: currentUser.email,
           name: currentUser.name,
           username: currentUser.username,
+          posts: currentUser.posts,
         });
 
         setIsAuthenticated(true);

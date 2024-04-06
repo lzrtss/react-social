@@ -20,7 +20,7 @@ export const SIDEBAR_LINKS = [
     label: 'Saved',
   },
   {
-    imgURL: '/assets/icons/create-post.svg',
+    imgURL: '/assets/icons/post.svg',
     route: '/create-post',
     label: 'Create Post',
   },

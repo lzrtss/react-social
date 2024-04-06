@@ -6,12 +6,10 @@ const LikedPosts = () => {
 
   if (!currentUser)
     return (
-      <div className="w-full h-full flex justify-center items-center">
-        <Loader
-          size={48}
-          className="w-full h-full flex justify-center items-center"
-        />
-      </div>
+      <Loader
+        size={48}
+        className="w-full h-full flex justify-center items-center"
+      />
     );
 
   return (

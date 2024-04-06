@@ -37,7 +37,7 @@ const CreatePost = () => {
       <div className="container">
         <div className="w-full max-w-5xl flex justify-start items-center gap-3">
           <img
-            src="/assets/icons/create-post.svg"
+            src="/assets/icons/post.svg"
             width={36}
             height={36}
             alt="add post"

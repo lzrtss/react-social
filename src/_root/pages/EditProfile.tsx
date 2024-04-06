@@ -22,9 +22,10 @@ const EditProfile = () => {
 
   if (!currentUser || isFetchingUser)
     return (
-      <div className="w-full h-full flex justify-center items-center">
-        <Loader size={48} />
-      </div>
+      <Loader
+        size={48}
+        className="w-full h-full flex justify-center items-center"
+      />
     );
 
   const handleCancel = () => {
