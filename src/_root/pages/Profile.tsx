@@ -49,6 +49,14 @@ const Profile = () => {
           index
           element={<GridPostList posts={userProfile.posts} showUser={false} />}
         />
+        {/* <Route
+          path="/followers"
+          element={<GridUserList users={userProfile.followers} />}
+        /> */}
+        {/* <Route
+          path="/following"
+          element={<GridUserList users={userProfile.following} />}
+        /> */}
 
         {isMyProfile ? (
           <Route path="/liked-posts" element={<LikedPosts />} />

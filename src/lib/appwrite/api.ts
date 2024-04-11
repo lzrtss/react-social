@@ -109,6 +109,30 @@ export const getUserById = async (userId: string) => {
   }
 };
 
+export const getUsers = async (limit?: number) => {
+  const queries = [Query.orderDesc('$createdAt')];
+
+  if (limit) {
+    queries.push(Query.limit(limit));
+  }
+
+  try {
+    const users = await databases.listDocuments(
+      appwriteConfig.databaseId,
+      appwriteConfig.usersCollectionId,
+      queries,
+    );
+
+    if (!users) {
+      throw new Error('Failed to get users.');
+    }
+
+    return users;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export const updateUser = async (user: IUpdateUser) => {
   const hasFileToUpdate = user.file.length > 0;
 

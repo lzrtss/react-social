@@ -3,7 +3,6 @@ import { Routes, Route } from 'react-router-dom';
 import { Toaster } from '@/components/ui';
 import { SignIn, SignUp } from './_auth/pages';
 import {
-  AllUsers,
   CreatePost,
   EditPost,
   EditProfile,
@@ -12,6 +11,7 @@ import {
   PostDetails,
   Profile,
   Saved,
+  Users,
 } from './_root/pages';
 import AuthLayout from './_auth/AuthLayout';
 import RootLayout from './_root/RootLayout';
@@ -27,10 +27,10 @@ const App = () => {
 
         <Route element={<RootLayout />}>
           <Route index element={<Home />} />
-          <Route path="/all-users" element={<AllUsers />} />
           <Route path="/create-post" element={<CreatePost />} />
           <Route path="/explore" element={<Explore />} />
           <Route path="/saved" element={<Saved />} />
+          <Route path="/users" element={<Users />} />
 
           <Route path="/edit-post/:id" element={<EditPost />} />
           <Route path="/posts/:id" element={<PostDetails />} />
