@@ -42,11 +42,11 @@ const ProfileInfo = ({ userProfile, isMyProfile }: ProfileInfoProps) => {
           following={10}
         />
 
-        <div className="w-full flex justify-center gap-4">
+        <div className="max-lg:w-full flex justify-center gap-4">
           {isMyProfile ? (
             <Link
               to={`/edit-profile/${userProfile.$id}`}
-              className={`w-full h-12 px-5 flex justify-center items-center gap-2 bg-dark-4 text-light-1 rounded-lg`}
+              className={`w-full min-w-[160px] h-12 px-5 flex justify-center items-center gap-2 bg-dark-4 text-light-1 rounded-lg`}
             >
               <img
                 src={'/assets/icons/edit.svg'}
@@ -61,7 +61,7 @@ const ProfileInfo = ({ userProfile, isMyProfile }: ProfileInfoProps) => {
           ) : (
             <Button
               type="button"
-              className="w-full px-8 flex bg-primary-500 hover:bg-primary-500 text-light-1 whitespace-nowrap"
+              className="w-full min-w-[160px] px-8 flex bg-primary-500 hover:bg-primary-500 text-light-1 whitespace-nowrap"
             >
               Follow
             </Button>

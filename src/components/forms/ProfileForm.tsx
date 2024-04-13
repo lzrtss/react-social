@@ -141,17 +141,17 @@ const ProfileForm = ({
           )}
         />
 
-        <div className="flex items-center justify-end gap-4">
+        <div className="flex items-center justify-end max-sm:justify-between gap-4">
           <Button
             type="button"
-            className="w-[140px] flex gap-2 bg-dark-4 px-5 text-light-1"
+            className="w-[160px] flex gap-2 bg-dark-4 px-5 text-light-1"
             onClick={onCancel}
           >
             Cancel
           </Button>
           <Button
             type="submit"
-            className="w-[140px] flex gap-2 bg-primary-500 hover:bg-primary-500 text-light-1 whitespace-nowrap"
+            className="w-[160px] flex gap-2 bg-primary-500 hover:bg-primary-500 text-light-1 whitespace-nowrap"
             disabled={isLoading}
           >
             {isLoading ? <Loader /> : null} Submit

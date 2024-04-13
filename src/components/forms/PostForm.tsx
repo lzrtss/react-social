@@ -112,10 +112,10 @@ const PostForm = ({ isLoading, post, onCancel, onSubmit }: PostFormProps) => {
             </FormItem>
           )}
         />
-        <div className="flex gap-4 items-center justify-end">
+        <div className="flex gap-4 items-center justify-end max-sm:justify-between">
           <Button
             type="button"
-            className="w-[140px] flex gap-2 bg-dark-4 px-5 text-light-1"
+            className="w-[160px] flex gap-2 bg-dark-4 px-5 text-light-1"
             onClick={onCancel}
           >
             Cancel
@@ -123,7 +123,7 @@ const PostForm = ({ isLoading, post, onCancel, onSubmit }: PostFormProps) => {
           <Button
             type="submit"
             disabled={isLoading}
-            className="w-[140px] flex gap-2 bg-primary-500 hover:bg-primary-500 text-light-1 whitespace-nowrap"
+            className="w-[160px] flex gap-2 bg-primary-500 hover:bg-primary-500 text-light-1 whitespace-nowrap"
           >
             {isLoading ? <Loader /> : null} Submit
           </Button>
