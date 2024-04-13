@@ -1,5 +1,5 @@
 import { useToast } from '@/components/ui/use-toast';
-import { GridUserList, Loader } from '@/components/shared';
+import { UserList, Loader } from '@/components/shared';
 import { useGetUsers } from '@/lib/react-query/queries';
 
 const Users = () => {
@@ -17,8 +17,6 @@ const Users = () => {
     return;
   }
 
-  console.log(users);
-
   return (
     <div className="container">
       <div className="w-full max-w-5xl flex flex-col items-start gap-6 md:gap-9">
@@ -26,9 +24,9 @@ const Users = () => {
           Users
         </h2>
         {isFetchingUsers && !users ? (
-          <Loader size={48} className="w-full flex justify-center" />
+          <Loader size={48} className="mt-10 w-full flex justify-center" />
         ) : (
-          <GridUserList users={users?.documents || []} />
+          <UserList users={users?.documents || []} />
         )}
       </div>
     </div>

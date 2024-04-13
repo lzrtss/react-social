@@ -1,20 +1,18 @@
 import {
   Route,
   Routes,
-  Link,
   Outlet,
   useParams,
   useLocation,
 } from 'react-router-dom';
 
-import { Button } from '@/components/ui';
 import {
-  GridPostList,
+  PostList,
   LikedPosts,
   Loader,
   ProfileInfo,
-  ProfileStats,
   ProfileTabs,
+  UserList,
 } from '@/components/shared';
 import { useUserContext } from '@/context/AuthContext';
 import { useGetUserById } from '@/lib/react-query/queries';
@@ -47,16 +45,16 @@ const Profile = () => {
       <Routes>
         <Route
           index
-          element={<GridPostList posts={userProfile.posts} showUser={false} />}
+          element={<PostList posts={userProfile.posts} showUser={false} />}
         />
-        {/* <Route
+        <Route
           path="/followers"
-          element={<GridUserList users={userProfile.followers} />}
-        /> */}
-        {/* <Route
+          element={<UserList users={userProfile.followers} />}
+        />
+        <Route
           path="/following"
-          element={<GridUserList users={userProfile.following} />}
-        /> */}
+          element={<UserList users={userProfile.following} />}
+        />
 
         {isMyProfile ? (
           <Route path="/liked-posts" element={<LikedPosts />} />

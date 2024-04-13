@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 
 import { Input } from '@/components/ui';
-import { GridPostList, Loader, SearchResults } from '@/components/shared';
+import { PostList, Loader, SearchResults } from '@/components/shared';
 import {
   useGetInfinitePosts,
   useGetSearchedPosts,
@@ -81,7 +81,7 @@ const Explore = () => {
           />
         ) : (
           posts.pages.map((item, index) => (
-            <GridPostList key={`post-${index}`} posts={item.documents} />
+            <PostList key={`post-${index}`} posts={item.documents} />
           ))
         )}
       </div>

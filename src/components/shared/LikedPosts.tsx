@@ -1,4 +1,4 @@
-import { GridPostList, Loader } from '@/components/shared';
+import { PostList, Loader } from '@/components/shared';
 import { useGetCurrentUser } from '@/lib/react-query/queries';
 
 const LikedPosts = () => {
@@ -13,13 +13,13 @@ const LikedPosts = () => {
     );
 
   return (
-    <section>
+    <>
       {currentUser.liked.length === 0 ? (
         <p className="text-light-4">No liked posts yet</p>
       ) : null}
 
-      <GridPostList posts={currentUser.liked} showActions={false} />
-    </section>
+      <PostList posts={currentUser.liked} showActions={false} />
+    </>
   );
 };
 

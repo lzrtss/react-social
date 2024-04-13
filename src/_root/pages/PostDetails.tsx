@@ -1,7 +1,7 @@
 import { Models } from 'appwrite';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 
-import { GridPostList, Loader, PostActions } from '@/components/shared';
+import { PostList, Loader, PostActions } from '@/components/shared';
 import { Button } from '@/components/ui';
 import {
   useDeletePost,
@@ -130,7 +130,7 @@ const PostDetails = () => {
         {isUserPostLoading || !relatedPosts ? (
           <Loader size={48} className="w-full flex justify-center" />
         ) : (
-          <GridPostList posts={relatedPosts} />
+          <PostList posts={relatedPosts} />
         )}
       </div>
     </div>

@@ -4,17 +4,17 @@ import { Models } from 'appwrite';
 import { useUserContext } from '@/context/AuthContext';
 import { PostActions } from '@/components/shared';
 
-interface GridPostListProps {
+interface PostListProps {
   posts: Models.Document[];
   showActions?: boolean;
   showUser?: boolean;
 }
 
-const GridPostList = ({
+const PostList = ({
   posts,
   showActions = true,
   showUser = true,
-}: GridPostListProps) => {
+}: PostListProps) => {
   const { user } = useUserContext();
 
   return (
@@ -61,4 +61,4 @@ const GridPostList = ({
   );
 };
 
-export default GridPostList;
+export default PostList;

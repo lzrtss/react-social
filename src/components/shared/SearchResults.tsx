@@ -1,6 +1,6 @@
 import { Models } from 'appwrite';
 
-import { GridPostList, Loader } from '@/components/shared';
+import { PostList, Loader } from '@/components/shared';
 
 interface SearchResultsProps {
   isLoading: boolean;
@@ -17,7 +17,7 @@ const SearchResults = ({ isLoading, isSuccess, posts }: SearchResultsProps) => {
       />
     );
   } else if (posts?.length > 0) {
-    return <GridPostList posts={posts} />;
+    return <PostList posts={posts} />;
   }
 
   return (

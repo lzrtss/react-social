@@ -1,7 +1,7 @@
 import { Models } from 'appwrite';
 
 import { useGetCurrentUser } from '@/lib/react-query/queries';
-import { GridPostList, Loader } from '@/components/shared';
+import { PostList, Loader } from '@/components/shared';
 
 const Saved = () => {
   const { data: currentUser } = useGetCurrentUser();
@@ -40,11 +40,7 @@ const Saved = () => {
           {savedPosts.length === 0 ? (
             <p className="text-light-4">No saved posts</p>
           ) : (
-            <GridPostList
-              posts={savedPosts}
-              showActions={false}
-              showUser={false}
-            />
+            <PostList posts={savedPosts} showActions={false} showUser={false} />
           )}
         </ul>
       )}

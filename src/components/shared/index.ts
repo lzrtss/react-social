@@ -1,8 +1,8 @@
 export { default as AppLogo } from './AppLogo';
 export { default as FileUploader } from './FileUploader';
 export { default as Footer } from './Footer';
-export { default as GridPostList } from './GridPostList';
-export { default as GridUserList } from './GridUserList';
+export { default as PostList } from './PostList';
+export { default as UserList } from './UserList';
 export { default as Header } from './Header';
 export { default as LikedPosts } from './LikedPosts';
 export { default as Loader } from './Loader';
