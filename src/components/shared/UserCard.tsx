@@ -19,7 +19,7 @@ const UserCard = ({ imageUrl, name, username, userId }: UserCardProps) => {
   return (
     <Link
       to={`/profile/${userId}`}
-      className="p-3 sm:p-8 flex justify-between items-center gap-3 sm:gap-6 border border-dark-4 rounded-2xl hover:border-neutral-700"
+      className="p-3 sm:p-8 flex justify-between items-center gap-3 sm:gap-6 bg-dark-4 rounded-2xl"
     >
       <div className="flex justify-center items-center gap-3 sm:gap-6">
         <img

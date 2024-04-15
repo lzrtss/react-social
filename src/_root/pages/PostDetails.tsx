@@ -38,14 +38,14 @@ const PostDetails = () => {
           className="w-full h-full flex justify-center items-center"
         />
       ) : (
-        <div className="w-full max-w-5xl flex flex-col xl:flex-row bg-dark-2 border border-dark-4 rounded-3xl">
+        <div className="w-full max-w-5xl flex flex-col xl:flex-row bg-dark-4 border border-dark-4 rounded-3xl">
           <img
             src={post?.imageUrl}
             alt="post"
-            className="h-80 lg:h-[480px] xl:w-[48%] p-5 rounded-3xl object-cover bg-dark-1"
+            className="h-80 lg:h-[480px] xl:w-[48%] p-5 rounded-3xl object-cover bg-dark-4"
           />
 
-          <div className="p-8 flex flex-1 flex-col items-start gap-5 lg:gap-7 bg-dark-2 rounded-3xl">
+          <div className="p-8 flex flex-1 flex-col items-start gap-5 lg:gap-7 bg-dark-4 rounded-3xl">
             <div className="w-full flex justify-between items-center">
               <Link
                 to={`/profile/${post?.author.$id}`}
@@ -107,7 +107,7 @@ const PostDetails = () => {
 
             <div className="w-full py-4 flex flex-1 flex-col text-sm font-medium lg:text-[16px]">
               <p className="mb-4">{post?.caption}</p>
-              <ul className="flex gap-1">
+              <ul className="flex flex-wrap gap-2">
                 {post?.tags.map((tag: string) => (
                   <li key={tag} className="text-light-3">
                     #{tag}

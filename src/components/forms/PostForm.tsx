@@ -50,7 +50,7 @@ const PostForm = ({ isLoading, post, onCancel, onSubmit }: PostFormProps) => {
               <FormLabel>Caption *</FormLabel>
               <FormControl>
                 <Textarea
-                  className="h-36 bg-dark-3 rounded-xl border-none focus-visible:ring-1 focus-visible:ring-offset-1 ring-offset-light-3 custom-scrollbar"
+                  className="h-36 bg-dark-4 rounded-xl border-none focus-visible:ring-1 focus-visible:ring-offset-1 ring-offset-light-3 custom-scrollbar"
                   {...field}
                 />
               </FormControl>

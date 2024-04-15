@@ -18,7 +18,7 @@ const Header = () => {
   }, [isSuccess]);
 
   return (
-    <header className="w-full sticky top-0 z-50 md:hidden bg-dark-2">
+    <header className="w-full sticky top-0 z-50 md:hidden bg-dark-4">
       <div className="px-5 py-4 flex justify-between items-center">
         <Link to="/">
           <AppLogo width={32} height={32} className="text-violet-100" />

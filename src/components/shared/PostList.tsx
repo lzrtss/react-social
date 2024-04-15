@@ -23,7 +23,7 @@ const PostList = ({
         <li key={post.$id}>
           <article className="relative min-w-80 h-80">
             <Link to={`/posts/${post.$id}`}>
-              <div className="w-full h-full flex overflow-hidden rounded-3xl border border-dark-4 hover:border-neutral-700 cursor-pointer">
+              <div className="w-full h-full flex overflow-hidden rounded-3xl border border-dark-4 cursor-pointer">
                 <img
                   src={post.imageUrl}
                   alt="post"

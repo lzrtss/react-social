@@ -7,7 +7,7 @@ const Footer = () => {
   const { pathname } = useLocation();
 
   return (
-    <footer className="sticky bottom-0 w-full px-5 py-4 bg-dark-2 z-50 md:hidden">
+    <footer className="sticky bottom-0 w-full px-5 py-4 bg-dark-4 z-50 md:hidden">
       <ul className="flex justify-between items-center">
         {FOOTER_LINKS.map((link: INavLink) => {
           const isActive = pathname === link.route;

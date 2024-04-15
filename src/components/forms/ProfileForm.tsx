@@ -132,7 +132,7 @@ const ProfileForm = ({
               <FormLabel className="text-white">Bio</FormLabel>
               <FormControl>
                 <Textarea
-                  className="h-36 bg-dark-3 rounded-xl border-none focus-visible:ring-1 focus-visible:ring-offset-1 ring-offset-light-3 custom-scrollbar"
+                  className="h-36 bg-dark-4 rounded-xl border-none focus-visible:ring-1 focus-visible:ring-offset-1 ring-offset-light-3 custom-scrollbar"
                   {...field}
                 />
               </FormControl>

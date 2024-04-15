@@ -34,7 +34,7 @@ const SignUpForm = ({ isLoading, onSubmit }: SignUpFormProps) => {
 
   return (
     <Form {...form}>
-      <div className="sm:w-420 flex flex-col justify-center items-center p-5 lg:p-7 bg-dark-2 rounded-3xl border border-dark-4">
+      <div className="sm:w-420 flex flex-col justify-center items-center p-5 lg:p-7 bg-dark-3 rounded-3xl border border-dark-4">
         <div className="flex flex-col items-center">
           <div className="flex justify-center items-center gap-2">
             <img
