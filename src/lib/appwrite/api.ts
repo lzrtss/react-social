@@ -25,9 +25,8 @@ export const saveUserToDB = async (user: {
     return newUser;
   } catch (error: any) {
     console.log(error);
-    throw new Error(error.message);
 
-    return error;
+    throw new Error(error.message);
   }
 };
 
@@ -104,8 +103,10 @@ export const getUserById = async (userId: string) => {
     }
 
     return user;
-  } catch (error) {
+  } catch (error: any) {
     console.log(error);
+
+    throw new Error(error.message);
   }
 };
 
@@ -128,8 +129,10 @@ export const getUsers = async (limit?: number) => {
     }
 
     return users;
-  } catch (error) {
+  } catch (error: any) {
     console.log(error);
+
+    throw new Error(error.message);
   }
 };
 
@@ -185,8 +188,10 @@ export const updateUser = async (user: IUpdateUser) => {
     }
 
     return updatedUser;
-  } catch (error) {
+  } catch (error: any) {
     console.log(error);
+
+    throw new Error(error.message);
   }
 };
 
@@ -376,8 +381,10 @@ export const getUserPosts = async (userId?: string) => {
     if (!post) throw Error;
 
     return post;
-  } catch (error) {
+  } catch (error: any) {
     console.log(error);
+
+    throw new Error(error.message);
   }
 };
 

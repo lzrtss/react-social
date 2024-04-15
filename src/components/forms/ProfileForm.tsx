@@ -81,7 +81,7 @@ const ProfileForm = ({
                   {...field}
                 />
               </FormControl>
-              <FormMessage />
+              <FormMessage className="text-red" />
             </FormItem>
           )}
         />
@@ -100,7 +100,7 @@ const ProfileForm = ({
                   disabled
                 />
               </FormControl>
-              <FormMessage />
+              <FormMessage className="text-red" />
             </FormItem>
           )}
         />
@@ -119,7 +119,7 @@ const ProfileForm = ({
                   disabled
                 />
               </FormControl>
-              <FormMessage />
+              <FormMessage className="text-red" />
             </FormItem>
           )}
         />

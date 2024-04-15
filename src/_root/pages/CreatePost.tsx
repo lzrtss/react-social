@@ -18,18 +18,24 @@ const CreatePost = () => {
   };
 
   const handleSubmit = async (values: z.infer<typeof postValidationSchema>) => {
-    const newPost = await createPost({
-      ...values,
-      userId: user.id,
-    });
+    try {
+      const newPost = await createPost({
+        ...values,
+        userId: user.id,
+      });
 
-    if (!newPost) {
+      if (!newPost) {
+        return toast({
+          title: 'Failed to create post. Please try again.',
+        });
+      }
+
+      navigate('/');
+    } catch (error: any) {
       return toast({
-        title: 'Failed to create post. Please try again.',
+        title: error.message,
       });
     }
-
-    navigate('/');
   };
 
   return (

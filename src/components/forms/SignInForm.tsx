@@ -70,7 +70,7 @@ const SignInForm = ({ isLoading, onSubmit }: SignInFormProps) => {
                     {...field}
                   />
                 </FormControl>
-                <FormMessage />
+                <FormMessage className="text-red" />
               </FormItem>
             )}
           />
@@ -89,7 +89,7 @@ const SignInForm = ({ isLoading, onSubmit }: SignInFormProps) => {
                     {...field}
                   />
                 </FormControl>
-                <FormMessage />
+                <FormMessage className="text-red" />
               </FormItem>
             )}
           />

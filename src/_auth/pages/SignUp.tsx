@@ -20,32 +20,38 @@ const SignUp = () => {
   const handleSubmit = async (
     values: z.infer<typeof signUpValidationSchema>,
   ) => {
-    const newUser = await createUser(values);
+    try {
+      const newUser = await createUser(values);
 
-    if (!newUser) {
-      return toast({
-        title: 'Failed to create an account. Please try again.',
+      if (!newUser) {
+        return toast({
+          title: 'Failed to create an account. Please try again.',
+        });
+      }
+
+      const session = await signIn({
+        email: values.email,
+        password: values.password,
       });
-    }
 
-    const session = await signIn({
-      email: values.email,
-      password: values.password,
-    });
+      if (!session) {
+        return toast({
+          title: 'Failed to sign in. Please try again.',
+        });
+      }
 
-    if (!session) {
+      const isLoggedIn = await checkAuthenticatedUser();
+
+      if (isLoggedIn) {
+        navigate('/');
+      } else {
+        return toast({
+          title: 'Failed to sign in. Please try again.',
+        });
+      }
+    } catch (error: any) {
       return toast({
-        title: 'Failed to sign in. Please try again.',
-      });
-    }
-
-    const isLoggedIn = await checkAuthenticatedUser();
-
-    if (isLoggedIn) {
-      navigate('/');
-    } else {
-      return toast({
-        title: 'Failed to sign in. Please try again.',
+        title: error.message,
       });
     }
   };

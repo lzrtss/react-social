@@ -17,24 +17,30 @@ const SignIn = () => {
   const handleSubmit = async (
     values: z.infer<typeof signInValidationSchema>,
   ) => {
-    const session = await signIn({
-      email: values.email,
-      password: values.password,
-    });
-
-    if (!session) {
-      return toast({
-        title: 'Failed to sign in. Please try again.',
+    try {
+      const session = await signIn({
+        email: values.email,
+        password: values.password,
       });
-    }
 
-    const isLoggedIn = await checkAuthenticatedUser();
+      if (!session) {
+        return toast({
+          title: 'Failed to sign in. Please try again.',
+        });
+      }
 
-    if (isLoggedIn) {
-      navigate('/');
-    } else {
+      const isLoggedIn = await checkAuthenticatedUser();
+
+      if (isLoggedIn) {
+        navigate('/');
+      } else {
+        return toast({
+          title: 'Failed to sign in. Please try again.',
+        });
+      }
+    } catch (error: any) {
       return toast({
-        title: 'Failed to sign in. Please try again.',
+        title: error.message,
       });
     }
   };

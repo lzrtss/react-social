@@ -72,7 +72,7 @@ const SignUpForm = ({ isLoading, onSubmit }: SignUpFormProps) => {
                     {...field}
                   />
                 </FormControl>
-                <FormMessage />
+                <FormMessage className="text-red" />
               </FormItem>
             )}
           />
@@ -91,7 +91,7 @@ const SignUpForm = ({ isLoading, onSubmit }: SignUpFormProps) => {
                     {...field}
                   />
                 </FormControl>
-                <FormMessage />
+                <FormMessage className="text-red" />
               </FormItem>
             )}
           />
@@ -110,7 +110,7 @@ const SignUpForm = ({ isLoading, onSubmit }: SignUpFormProps) => {
                     {...field}
                   />
                 </FormControl>
-                <FormMessage />
+                <FormMessage className="text-red" />
               </FormItem>
             )}
           />
@@ -129,7 +129,7 @@ const SignUpForm = ({ isLoading, onSubmit }: SignUpFormProps) => {
                     {...field}
                   />
                 </FormControl>
-                <FormMessage />
+                <FormMessage className="text-red" />
               </FormItem>
             )}
           />

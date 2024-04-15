@@ -35,29 +35,39 @@ const EditProfile = () => {
   const handleSubmit = async (
     values: z.infer<typeof profileValidationSchema>,
   ) => {
-    const updatedUser = await updateUser({
-      userId: currentUser.$id,
-      name: values.name,
-      bio: values.bio,
-      file: values.file,
-      imageUrl: currentUser.imageUrl,
-      imageId: currentUser.imageId,
-    });
+    try {
+      const updatedUser = await updateUser({
+        userId: currentUser.$id,
+        name: values.name,
+        bio: values.bio,
+        file: values.file,
+        imageUrl: currentUser.imageUrl,
+        imageId: currentUser.imageId,
+      });
 
-    if (!updatedUser) {
+      if (!updatedUser) {
+        return toast({
+          title: 'Update user failed. Please try again.',
+        });
+      }
+
+      setUser({
+        ...user,
+        name: updatedUser?.name,
+        bio: updatedUser?.bio,
+        imageUrl: updatedUser?.imageUrl,
+      });
+
       toast({
-        title: `Update user failed. Please try again.`,
+        title: 'Your profile has been updated.',
+      });
+
+      return navigate(`/profile/${id}`);
+    } catch (error: any) {
+      return toast({
+        title: error.message,
       });
     }
-
-    setUser({
-      ...user,
-      name: updatedUser?.name,
-      bio: updatedUser?.bio,
-      imageUrl: updatedUser?.imageUrl,
-    });
-
-    return navigate(`/profile/${id}`);
   };
 
   return (
