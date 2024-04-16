@@ -35,11 +35,13 @@ const PostCard = ({ post }: PostCardProps) => {
               <Link to={`/profile/${post.author.$id}`}>{post.author.name}</Link>
             </p>
 
-            <div className="flex justify-center items-center gap-2 text-light-3">
+            <div className="flex justify-center items-center gap-1 text-light-3">
               <p className="text-xs lg:text-sm">
                 {formatDate(post.$createdAt)}
               </p>
-              -<p className="text-xs lg:text-sm">{post.location}</p>
+              {post.location ? (
+                <p className="text-xs lg:text-sm">- {post.location}</p>
+              ) : null}
             </div>
           </div>
         </div>
