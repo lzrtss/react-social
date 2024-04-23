@@ -12,7 +12,6 @@ import {
   Loader,
   ProfileInfo,
   ProfileTabs,
-  UserList,
 } from '@/components/shared';
 import { useUserContext } from '@/context/AuthContext';
 import { useGetUserById } from '@/lib/react-query/queries';
@@ -25,7 +24,7 @@ const Profile = () => {
   const { data: userProfile, isPending: isFetchingUserProfile } =
     useGetUserById(id || '');
 
-  if (!userProfile || isFetchingUserProfile) {
+  if (!userProfile || isFetchingUserProfile || !currentUser.id) {
     return (
       <Loader
         size={48}
@@ -40,25 +39,15 @@ const Profile = () => {
     <div className="py-10 px-5 md:p-14 flex flex-1 flex-col items-center gap-10 overflow-scroll custom-scrollbar">
       <ProfileInfo userProfile={userProfile} isMyProfile={isMyProfile} />
 
-      {isMyProfile && <ProfileTabs pathname={pathname} userId={id} />}
+      {<ProfileTabs pathname={pathname} userId={id} />}
 
       <Routes>
         <Route
           index
           element={<PostList posts={userProfile.posts} showUser={false} />}
         />
-        <Route
-          path="/followers"
-          element={<UserList users={userProfile.followers} />}
-        />
-        <Route
-          path="/following"
-          element={<UserList users={userProfile.following} />}
-        />
 
-        {isMyProfile ? (
-          <Route path="/liked-posts" element={<LikedPosts />} />
-        ) : null}
+        <Route path="/liked-posts" element={<LikedPosts />} />
       </Routes>
       <Outlet />
     </div>

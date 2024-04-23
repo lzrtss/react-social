@@ -15,6 +15,7 @@ import {
   Input,
 } from '@/components/ui';
 import { signInValidationSchema } from '@/lib/validation';
+import { APP, SIGN_IN_FORM } from '@/constants';
 
 interface SignInFormProps {
   isLoading: boolean;
@@ -41,14 +42,12 @@ const SignInForm = ({ isLoading, onSubmit }: SignInFormProps) => {
               width={28}
               height={28}
             />
-            <h2 className="text-2xl font-bold text-violet-100">React Posts</h2>
+            <h2 className="text-2xl font-bold text-violet-100">{APP.TITLE}</h2>
           </div>
 
-          <h2 className="mt-5 text-2xl font-bold">Sign in to your account</h2>
+          <h2 className="mt-5 text-2xl font-bold">{SIGN_IN_FORM.TITLE}</h2>
 
-          <p className="mt-2 text-light-3">
-            Welcome back! Please enter your details
-          </p>
+          <p className="mt-2 text-light-3">{SIGN_IN_FORM.GREETINGS}</p>
         </div>
 
         <form
@@ -61,11 +60,11 @@ const SignInForm = ({ isLoading, onSubmit }: SignInFormProps) => {
             name="email"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Email</FormLabel>
+                <FormLabel>{SIGN_IN_FORM.EMAIL_LABEL}</FormLabel>
                 <FormControl>
                   <Input
                     type="email"
-                    placeholder="your email"
+                    placeholder={SIGN_IN_FORM.EMAIL_PLACEHOLDER}
                     className="h-12 bg-dark-4 border-none placeholder:text-light-4 focus-visible:ring-1 focus-visible:ring-offset-1 ring-offset-light-3"
                     {...field}
                   />
@@ -80,11 +79,11 @@ const SignInForm = ({ isLoading, onSubmit }: SignInFormProps) => {
             name="password"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Password</FormLabel>
+                <FormLabel>{SIGN_IN_FORM.PASSWORD_LABEL}</FormLabel>
                 <FormControl>
                   <Input
                     type="password"
-                    placeholder="your password"
+                    placeholder={SIGN_IN_FORM.PASSWORD_PLACEHOLDER}
                     className="h-12 bg-dark-4 border-none placeholder:text-light-4 focus-visible:ring-1 focus-visible:ring-offset-1 ring-offset-light-3"
                     {...field}
                   />
@@ -97,17 +96,17 @@ const SignInForm = ({ isLoading, onSubmit }: SignInFormProps) => {
             type="submit"
             className="mt-4 flex gap-2 bg-primary-500 hover:bg-primary-600 text-light-1 font-medium"
           >
-            {isLoading ? <Loader /> : null} Sign in
+            {isLoading ? <Loader /> : null} {SIGN_IN_FORM.SUBMIT_BUTTON_TEXT}
           </Button>
         </form>
 
         <p className="mt-4 text-sm text-light-2 text-center">
-          Do not have an account yet?
+          {SIGN_IN_FORM.QUESTION_TEXT}
           <Link
             to="/sign-up"
             className="ml-1 text-primary-500 font-semibold hover:underline"
           >
-            Sign up
+            {SIGN_IN_FORM.LINK_TEXT}
           </Link>
         </p>
       </div>

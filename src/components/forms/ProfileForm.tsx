@@ -15,6 +15,7 @@ import {
   Textarea,
 } from '@/components/ui';
 import { profileValidationSchema } from '@/lib/validation';
+import { PROFILE_FORM } from '@/constants';
 
 interface ProfileFormProps {
   isLoading: boolean;
@@ -73,7 +74,9 @@ const ProfileForm = ({
           name="name"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className="text-white">Name</FormLabel>
+              <FormLabel className="text-white">
+                {PROFILE_FORM.NAME_LABEL}
+              </FormLabel>
               <FormControl>
                 <Input
                   type="text"
@@ -91,7 +94,9 @@ const ProfileForm = ({
           name="username"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className="text-white">Username</FormLabel>
+              <FormLabel className="text-white">
+                {PROFILE_FORM.USERNAME_LABEL}
+              </FormLabel>
               <FormControl>
                 <Input
                   type="text"
@@ -110,7 +115,9 @@ const ProfileForm = ({
           name="email"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className="text-white">Email</FormLabel>
+              <FormLabel className="text-white">
+                {PROFILE_FORM.EMAIL_LABEL}
+              </FormLabel>
               <FormControl>
                 <Input
                   type="text"
@@ -129,7 +136,9 @@ const ProfileForm = ({
           name="bio"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className="text-white">Bio</FormLabel>
+              <FormLabel className="text-white">
+                {PROFILE_FORM.BIO_LABEL}
+              </FormLabel>
               <FormControl>
                 <Textarea
                   className="h-36 bg-dark-4 rounded-xl border-none focus-visible:ring-1 focus-visible:ring-offset-1 ring-offset-light-3 custom-scrollbar"
@@ -144,17 +153,18 @@ const ProfileForm = ({
         <div className="flex items-center justify-end max-sm:justify-between gap-4">
           <Button
             type="button"
-            className="w-[160px] flex gap-2 bg-dark-4 px-5 text-light-1"
+            className="w-[160px] flex gap-2 bg-dark-4 text-light-1 transition hover:bg-light-1 hover:text-dark-1"
+            disabled={isLoading}
             onClick={onCancel}
           >
-            Cancel
+            {PROFILE_FORM.CANCEL_BUTTON_TEXT}
           </Button>
           <Button
             type="submit"
-            className="w-[160px] flex gap-2 bg-primary-500 hover:bg-primary-500 text-light-1 whitespace-nowrap"
+            className="w-[160px] flex gap-2 bg-primary-500 hover:bg-primary-600 text-light-1 whitespace-nowrap"
             disabled={isLoading}
           >
-            {isLoading ? <Loader /> : null} Submit
+            {isLoading ? <Loader /> : null} {PROFILE_FORM.SUBMIT_BUTTON_TEXT}
           </Button>
         </div>
       </form>

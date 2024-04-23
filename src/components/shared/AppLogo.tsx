@@ -1,3 +1,5 @@
+import { APP } from '@/constants';
+
 interface AppLogoProps {
   className?: string;
   height?: number;
@@ -13,7 +15,7 @@ const AppLogo = ({ className, height = 24, width = 24 }: AppLogoProps) => {
         width={width}
         alt="logo"
       />{' '}
-      <h1 className={`text-xl font-semibold ${className}`}>React Posts</h1>
+      <h1 className={`text-xl font-semibold ${className}`}>{APP.TITLE}</h1>
     </div>
   );
 };

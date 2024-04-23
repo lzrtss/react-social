@@ -6,6 +6,7 @@ import { useToast } from '@/components/ui/use-toast';
 import { signUpValidationSchema } from '@/lib/validation';
 import { useCreateUser, useSignIn } from '@/lib/react-query/queries';
 import { useUserContext } from '@/context/AuthContext';
+import { SIGN_IN, SIGN_UP } from '@/constants';
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -25,7 +26,7 @@ const SignUp = () => {
 
       if (!newUser) {
         return toast({
-          title: 'Failed to create an account. Please try again.',
+          title: SIGN_UP.ERROR_MESSAGE,
         });
       }
 
@@ -36,7 +37,7 @@ const SignUp = () => {
 
       if (!session) {
         return toast({
-          title: 'Failed to sign in. Please try again.',
+          title: SIGN_IN.ERROR_MESSAGE,
         });
       }
 
@@ -46,7 +47,7 @@ const SignUp = () => {
         navigate('/');
       } else {
         return toast({
-          title: 'Failed to sign in. Please try again.',
+          title: SIGN_IN.ERROR_MESSAGE,
         });
       }
     } catch (error: any) {

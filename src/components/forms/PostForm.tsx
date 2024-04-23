@@ -16,6 +16,7 @@ import {
   Textarea,
 } from '@/components/ui';
 import { postValidationSchema } from '@/lib/validation';
+import { POST_FORM } from '@/constants';
 
 interface PostFormProps {
   isLoading: boolean;
@@ -47,7 +48,7 @@ const PostForm = ({ isLoading, post, onCancel, onSubmit }: PostFormProps) => {
           name="caption"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Caption *</FormLabel>
+              <FormLabel>{POST_FORM.CAPTION_LABEL}</FormLabel>
               <FormControl>
                 <Textarea
                   className="h-36 bg-dark-4 rounded-xl border-none focus-visible:ring-1 focus-visible:ring-offset-1 ring-offset-light-3 custom-scrollbar"
@@ -64,7 +65,7 @@ const PostForm = ({ isLoading, post, onCancel, onSubmit }: PostFormProps) => {
           name="file"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Add Photo (.jpg, .png, .svg, 10Mb max) *</FormLabel>
+              <FormLabel>{POST_FORM.FILE_UPLOADER_LABEL}</FormLabel>
               <FormControl>
                 <FileUploader
                   fieldChange={field.onChange}
@@ -81,10 +82,11 @@ const PostForm = ({ isLoading, post, onCancel, onSubmit }: PostFormProps) => {
           name="location"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Add Location</FormLabel>
+              <FormLabel>{POST_FORM.LOCATION_LABEL}</FormLabel>
               <FormControl>
                 <Input
                   type="text"
+                  placeholder={POST_FORM.LOCATION_PLACEHOLDER}
                   className="h-12 bg-dark-4 border-none placeholder:text-light-4 focus-visible:ring-1 focus-visible:ring-offset-1 ring-offset-light-3"
                   {...field}
                 />
@@ -99,11 +101,11 @@ const PostForm = ({ isLoading, post, onCancel, onSubmit }: PostFormProps) => {
           name="tags"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Add Tags (separated by comma)</FormLabel>
+              <FormLabel>{POST_FORM.TAGS_LABEL}</FormLabel>
               <FormControl>
                 <Input
                   type="text"
-                  placeholder="TS, ReactJS, TailwindCSS"
+                  placeholder={POST_FORM.LOCATION_PLACEHOLDER}
                   className="h-12 bg-dark-4 border-none placeholder:text-light-4 focus-visible:ring-1 focus-visible:ring-offset-1 ring-offset-light-3"
                   {...field}
                 />
@@ -115,17 +117,18 @@ const PostForm = ({ isLoading, post, onCancel, onSubmit }: PostFormProps) => {
         <div className="flex gap-4 items-center justify-end max-sm:justify-between">
           <Button
             type="button"
-            className="w-[160px] flex gap-2 bg-dark-4 px-5 text-light-1"
+            className="w-[160px] flex gap-2 bg-dark-4 text-light-1 transition hover:bg-light-1 hover:text-dark-1"
+            disabled={isLoading}
             onClick={onCancel}
           >
-            Cancel
+            {POST_FORM.CANCEL_BUTTON_TEXT}
           </Button>
           <Button
             type="submit"
             disabled={isLoading}
-            className="w-[160px] flex gap-2 bg-primary-500 hover:bg-primary-500 text-light-1 whitespace-nowrap"
+            className="w-[160px] flex gap-2 bg-primary-500 hover:bg-primary-600 text-light-1 whitespace-nowrap"
           >
-            {isLoading ? <Loader /> : null} Submit
+            {isLoading ? <Loader /> : null} {POST_FORM.SUBMIT_BUTTON_TEXT}
           </Button>
         </div>
       </form>

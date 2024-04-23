@@ -1,20 +1,12 @@
 import { Link } from 'react-router-dom';
-
-import { Button } from '@/components/ui';
+import { Models } from 'appwrite';
 
 interface UserCardProps {
-  imageUrl: string;
-  name: string;
-  username: string;
-  userId: string;
+  user: Models.Document;
 }
 
-const UserCard = ({ imageUrl, name, username, userId }: UserCardProps) => {
-  const handleFollow: React.MouseEventHandler<HTMLButtonElement> = (e) => {
-    e.preventDefault();
-
-    return;
-  };
+const UserCard = ({ user }: UserCardProps) => {
+  const { $id: userId, imageUrl, name, username } = user;
 
   return (
     <Link
@@ -39,15 +31,6 @@ const UserCard = ({ imageUrl, name, username, userId }: UserCardProps) => {
           </p>
         </div>
       </div>
-
-      <Button
-        type="button"
-        size="sm"
-        className="p-4 sm:px-8 sm:py-5 bg-primary-500 hover:bg-primary-500 text-light-1"
-        onClick={handleFollow}
-      >
-        Follow
-      </Button>
     </Link>
   );
 };

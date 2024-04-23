@@ -2,13 +2,10 @@ import { Models } from 'appwrite';
 
 import { Loader, PostCard } from '@/components/shared';
 import { useGetRecentPosts } from '@/lib/react-query/queries';
+import { HOME } from '@/constants';
 
 const Home = () => {
-  const {
-    data: posts,
-    isPending: isFetchingPosts,
-    isError: isErrorPosts,
-  } = useGetRecentPosts();
+  const { data: posts, isPending: isFetchingPosts } = useGetRecentPosts();
 
   if (isFetchingPosts) {
     return (
@@ -24,7 +21,7 @@ const Home = () => {
       <div className="container">
         <div className="max-w-screen-sm flex flex-col items-center w-full gap-6 md:gap-9">
           <h2 className="w-full text-left text-2xl font-bold md:text-3xl">
-            Recent Posts
+            {HOME.PAGE_TITLE}
           </h2>
 
           <ul className="flex flex-col flex-1 gap-9 w-full">

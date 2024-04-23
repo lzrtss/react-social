@@ -1,3 +1,4 @@
+import { PROFILE_TABS } from '@/constants';
 import { Link } from 'react-router-dom';
 
 interface ProfileTabsProps {
@@ -20,7 +21,7 @@ const ProfileTabs = ({ pathname, userId = '' }: ProfileTabsProps) => {
           width={20}
           height={20}
         />
-        Posts
+        {PROFILE_TABS.POSTS_TAB_LABEL}
       </Link>
       <Link
         to={`/profile/${userId}/liked-posts`}
@@ -34,7 +35,7 @@ const ProfileTabs = ({ pathname, userId = '' }: ProfileTabsProps) => {
           width={20}
           height={20}
         />
-        Likes
+        {PROFILE_TABS.LIKES_TAB_LABEL}
       </Link>
     </div>
   );

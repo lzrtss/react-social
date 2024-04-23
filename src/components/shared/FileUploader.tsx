@@ -2,6 +2,7 @@ import { useCallback, useState } from 'react';
 import { FileWithPath, useDropzone } from 'react-dropzone';
 
 import { Button } from '@/components/ui';
+import { FILE_UPLOADER } from '@/constants';
 
 interface FileUploaderProps {
   fieldChange: (FILES: File[]) => void;
@@ -42,7 +43,7 @@ const FileUploader = ({ fieldChange, mediaUrl }: FileUploaderProps) => {
             />
           </div>
           <p className="w-full p-4 text-light-4 text-center small-regular border-t border-t-dark-4">
-            Click or drag another photo to replace
+            {FILE_UPLOADER.LABEL}
           </p>
         </>
       ) : (
@@ -54,12 +55,14 @@ const FileUploader = ({ fieldChange, mediaUrl }: FileUploaderProps) => {
             alt="upload files"
           />
           <div className="mb-2 mt-6 font-medium text-light-2">
-            Drag the photo here...
+            {FILE_UPLOADER.PLACEHOLDER}
           </div>
-          <p className="mb-6 font-normal text-sm text-light-4">SVG, PNG, JPG</p>
+          <p className="mb-6 font-normal text-sm text-light-4">
+            {FILE_UPLOADER.AVAILABLE_FORMATS}
+          </p>
 
           <Button className="w-[120px] flex gap-2 bg-dark-4 px-5 text-light-1">
-            Select file
+            {FILE_UPLOADER.SELECT_BUTTON_TEXT}
           </Button>
         </div>
       )}

@@ -1,6 +1,7 @@
 import { Models } from 'appwrite';
 
 import { PostList, Loader } from '@/components/shared';
+import { SEARCH_RESULTS } from '@/constants';
 
 interface SearchResultsProps {
   isLoading: boolean;
@@ -24,7 +25,7 @@ const SearchResults = ({ isLoading, isSuccess, posts }: SearchResultsProps) => {
     <>
       {isSuccess && (
         <p className="w-full mt-10 text-center text-light-4">
-          No results found
+          {SEARCH_RESULTS.NO_RESULTS}
         </p>
       )}
     </>

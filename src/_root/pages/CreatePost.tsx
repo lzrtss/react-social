@@ -6,6 +6,7 @@ import { useToast } from '@/components/ui';
 import { useUserContext } from '@/context/AuthContext';
 import { useCreatePost } from '@/lib/react-query/queries';
 import { postValidationSchema } from '@/lib/validation';
+import { CREATE_POST } from '@/constants';
 
 const CreatePost = () => {
   const navigate = useNavigate();
@@ -26,7 +27,7 @@ const CreatePost = () => {
 
       if (!newPost) {
         return toast({
-          title: 'Failed to create post. Please try again.',
+          title: CREATE_POST.ERROR_MESSAGE,
         });
       }
 
@@ -50,7 +51,7 @@ const CreatePost = () => {
             className="invert brightness-0 transition"
           />
           <h2 className="w-full text-2xl font-bold md:text-3xl text-left">
-            Create Post
+            {CREATE_POST.PAGE_TITLE}
           </h2>
         </div>
 

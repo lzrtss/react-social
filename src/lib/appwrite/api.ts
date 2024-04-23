@@ -1,4 +1,4 @@
-import { ID, Query } from 'appwrite';
+import { ID, Models, Query } from 'appwrite';
 
 import { account, appwriteConfig, avatars, databases, storage } from './config';
 import { INewPost, INewUser, IUpdatePost, IUpdateUser } from '@/types';
@@ -32,7 +32,6 @@ export const saveUserToDB = async (user: {
 
 export const createUser = async (user: INewUser) => {
   try {
-    // create new user account and save it to the Auth db
     const newAccount = await account.create(
       ID.unique(),
       user.email,
@@ -44,10 +43,10 @@ export const createUser = async (user: INewUser) => {
       throw new Error('Failed to create new account');
     }
 
-    // create user's default avatar based on his name
+
     const avatarUrl = avatars.getInitials(user.name);
 
-    // create new user and save it to the Users db
+
     const newUser = await saveUserToDB({
       accountId: newAccount.$id,
       imageUrl: avatarUrl,
@@ -82,7 +81,9 @@ export const getCurrentUser = async () => {
       throw new Error('Failed to get current user.');
     }
 
-    return currentUser.documents[0];
+    const user = currentUser.documents[0];
+
+    return user;
   } catch (error: any) {
     console.log(error);
 
@@ -111,7 +112,12 @@ export const getUserById = async (userId: string) => {
 };
 
 export const getUsers = async (limit?: number) => {
-  const queries = [Query.orderDesc('$createdAt')];
+  const currentUser = await getCurrentUser();
+
+  const queries = [
+    Query.orderDesc('$createdAt'),
+    Query.notEqual('$id', currentUser.$id),
+  ];
 
   if (limit) {
     queries.push(Query.limit(limit));
@@ -128,7 +134,7 @@ export const getUsers = async (limit?: number) => {
       throw new Error('Failed to get users.');
     }
 
-    return users;
+    return users.documents;
   } catch (error: any) {
     console.log(error);
 
@@ -146,11 +152,9 @@ export const updateUser = async (user: IUpdateUser) => {
     };
 
     if (hasFileToUpdate) {
-      // Upload new file to appwrite storage
       const uploadedFile = await uploadFile(user.file[0]);
       if (!uploadedFile) throw Error;
 
-      // Get new file url
       const fileUrl = getFilePreview(uploadedFile.$id);
       if (!fileUrl) {
         await deleteFile(uploadedFile.$id);
@@ -160,7 +164,6 @@ export const updateUser = async (user: IUpdateUser) => {
       image = { ...image, imageUrl: fileUrl, imageId: uploadedFile.$id };
     }
 
-    //  Update user
     const updatedUser = await databases.updateDocument(
       appwriteConfig.databaseId,
       appwriteConfig.usersCollectionId,
@@ -173,16 +176,13 @@ export const updateUser = async (user: IUpdateUser) => {
       },
     );
 
-    // Failed to update
     if (!updatedUser) {
-      // Delete new file that has been recently uploaded
       if (hasFileToUpdate) {
         await deleteFile(image.imageId);
       }
       throw Error('Failed to upload file.');
     }
 
-    // Delete old file after successful update
     if (user.imageId && hasFileToUpdate) {
       await deleteFile(user.imageId);
     }
@@ -491,13 +491,13 @@ export const deletePost = async (postId: string, imageId: string) => {
   }
 
   try {
-    await databases.deleteDocument(
+    const result = await databases.deleteDocument(
       appwriteConfig.databaseId,
       appwriteConfig.postsCollectionId,
       postId,
     );
 
-    return { status: 'ok' };
+    return result;
   } catch (error: any) {
     console.log(error);
 
@@ -506,29 +506,6 @@ export const deletePost = async (postId: string, imageId: string) => {
 };
 
 export const likePost = async (postId: string, likesArray: string[]) => {
-  try {
-    const updatedPost = await databases.updateDocument(
-      appwriteConfig.databaseId,
-      appwriteConfig.postsCollectionId,
-      postId,
-      {
-        likes: likesArray,
-      },
-    );
-
-    if (!updatedPost) {
-      throw new Error('Failed to like the post');
-    }
-
-    return updatedPost;
-  } catch (error: any) {
-    console.log(error);
-
-    throw new Error(error.message);
-  }
-};
-
-export const unLikePost = async (postId: string, likesArray: string[]) => {
   try {
     const updatedPost = await databases.updateDocument(
       appwriteConfig.databaseId,
@@ -603,7 +580,7 @@ export const getInfinitePosts = async ({
   const queries: any[] = [Query.orderDesc('$updatedAt'), Query.limit(10)];
 
   if (pageParam) {
-    queries.push(Query.cursorAfter(pageParam.toString())); // skips posts that has already been fetched
+    queries.push(Query.cursorAfter(pageParam.toString()));
   }
 
   try {

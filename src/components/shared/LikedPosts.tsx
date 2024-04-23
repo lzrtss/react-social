@@ -1,4 +1,5 @@
 import { PostList, Loader } from '@/components/shared';
+import { LIKED_POSTS } from '@/constants';
 import { useGetCurrentUser } from '@/lib/react-query/queries';
 
 const LikedPosts = () => {
@@ -15,7 +16,7 @@ const LikedPosts = () => {
   return (
     <>
       {currentUser.liked.length === 0 ? (
-        <p className="text-light-4">No liked posts yet</p>
+        <p className="text-light-4">{LIKED_POSTS.NO_POSTS}</p>
       ) : null}
 
       <PostList posts={currentUser.liked} showActions={false} />

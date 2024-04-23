@@ -6,6 +6,7 @@ import { useToast } from '@/components/ui';
 import { signInValidationSchema } from '@/lib/validation';
 import { useSignIn } from '@/lib/react-query/queries';
 import { useUserContext } from '@/context/AuthContext';
+import { SIGN_IN } from '@/constants';
 
 const SignIn = () => {
   const navigate = useNavigate();
@@ -25,7 +26,7 @@ const SignIn = () => {
 
       if (!session) {
         return toast({
-          title: 'Failed to sign in. Please try again.',
+          title: SIGN_IN.ERROR_MESSAGE,
         });
       }
 
@@ -35,7 +36,7 @@ const SignIn = () => {
         navigate('/');
       } else {
         return toast({
-          title: 'Failed to sign in. Please try again.',
+          title: SIGN_IN.ERROR_MESSAGE,
         });
       }
     } catch (error: any) {

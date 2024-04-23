@@ -5,7 +5,7 @@ import { AppLogo } from '@/components/shared';
 import { Button } from '@/components/ui';
 import { useSignOut } from '@/lib/react-query/queries';
 import { useUserContext } from '@/context/AuthContext';
-import { SIDEBAR_LINKS } from '@/constants';
+import { MAIN_NAVBAR } from '@/constants';
 import { INavLink } from '@/types';
 
 const MainNavbar = () => {
@@ -21,7 +21,7 @@ const MainNavbar = () => {
   }, [isSuccess]);
 
   return (
-    <nav className="hidden md:flex px-6 py-10 flex-col justify-between min-w-[270px] bg-dark-4">
+    <nav className="hidden md:flex px-6 py-10 flex-col min-w-[270px] bg-dark-4">
       <div className="flex flex-col gap-10">
         <Link to="/">
           <AppLogo
@@ -49,7 +49,7 @@ const MainNavbar = () => {
         </Link>
 
         <ul className="flex flex-col gap-6">
-          {SIDEBAR_LINKS.map((link: INavLink) => {
+          {MAIN_NAVBAR.SIDEBAR_LINKS.map((link: INavLink) => {
             const isActive = pathname === link.route;
 
             return (
@@ -82,7 +82,7 @@ const MainNavbar = () => {
 
       <Button
         variant="ghost"
-        className="mt-6 p-4 flex gap-3 justify-start items-center hover:bg-transparent hover:text-white"
+        className="h-14 mt-6 p-4 flex gap-3 justify-start items-center hover:bg-transparent hover:text-white hover:bg-primary-500 transition group"
         onClick={() => signOut()}
       >
         <img
@@ -90,8 +90,11 @@ const MainNavbar = () => {
           width={24}
           height={24}
           alt="logout"
+          className="group-hover:invert group-hover:brightness-0 transition"
         />
-        <p className="text-sm font-medium lg:text-[16px]">Log out</p>
+        <p className="text-sm font-medium lg:text-[16px]">
+          {MAIN_NAVBAR.LOGOUT_BUTTON_TEXT}
+        </p>
       </Button>
     </nav>
   );

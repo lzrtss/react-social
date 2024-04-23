@@ -15,6 +15,7 @@ import {
   Input,
 } from '@/components/ui';
 import { signUpValidationSchema } from '@/lib/validation';
+import { APP, SIGN_UP_FORM } from '@/constants';
 
 interface SignUpFormProps {
   isLoading: boolean;
@@ -43,14 +44,12 @@ const SignUpForm = ({ isLoading, onSubmit }: SignUpFormProps) => {
               width={28}
               height={28}
             />
-            <h2 className="text-2xl font-bold text-violet-100">React Posts</h2>
+            <h2 className="text-2xl font-bold text-violet-100">{APP.TITLE}</h2>
           </div>
 
-          <h2 className="mt-5 text-2xl font-bold">Create a new account</h2>
+          <h2 className="mt-5 text-2xl font-bold">{SIGN_UP_FORM.TITLE}</h2>
 
-          <p className="mt-2 text-light-3">
-            Enter your info to use React Posts
-          </p>
+          <p className="mt-2 text-light-3">{SIGN_UP_FORM.GREETINGS}</p>
         </div>
 
         <form
@@ -63,11 +62,11 @@ const SignUpForm = ({ isLoading, onSubmit }: SignUpFormProps) => {
             name="name"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Name</FormLabel>
+                <FormLabel>{SIGN_UP_FORM.NAME_LABEL}</FormLabel>
                 <FormControl>
                   <Input
                     type="text"
-                    placeholder="John Doe"
+                    placeholder={SIGN_UP_FORM.NAME_PLACEHOLDER}
                     className="h-12 bg-dark-4 border-none placeholder:text-light-4 focus-visible:ring-1 focus-visible:ring-offset-1 ring-offset-light-3"
                     {...field}
                   />
@@ -82,11 +81,11 @@ const SignUpForm = ({ isLoading, onSubmit }: SignUpFormProps) => {
             name="username"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Username</FormLabel>
+                <FormLabel>{SIGN_UP_FORM.USERNAME_LABEL}</FormLabel>
                 <FormControl>
                   <Input
                     type="text"
-                    placeholder="jdoe"
+                    placeholder={SIGN_UP_FORM.USERNAME_PLACEHOLDER}
                     className="h-12 bg-dark-4 border-none placeholder:text-light-4 focus-visible:ring-1 focus-visible:ring-offset-1 ring-offset-light-3"
                     {...field}
                   />
@@ -101,11 +100,11 @@ const SignUpForm = ({ isLoading, onSubmit }: SignUpFormProps) => {
             name="email"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Email</FormLabel>
+                <FormLabel>{SIGN_UP_FORM.EMAIL_LABEL}</FormLabel>
                 <FormControl>
                   <Input
                     type="email"
-                    placeholder="john123@mail.com"
+                    placeholder={SIGN_UP_FORM.EMAIL_PLACEHOLDER}
                     className="h-12 bg-dark-4 border-none placeholder:text-light-4 focus-visible:ring-1 focus-visible:ring-offset-1 ring-offset-light-3"
                     {...field}
                   />
@@ -120,11 +119,11 @@ const SignUpForm = ({ isLoading, onSubmit }: SignUpFormProps) => {
             name="password"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Password</FormLabel>
+                <FormLabel>{SIGN_UP_FORM.PASSWORD_LABEL}</FormLabel>
                 <FormControl>
                   <Input
                     type="password"
-                    placeholder="******"
+                    placeholder={SIGN_UP_FORM.PASSWORD_PLACEHOLDER}
                     className="h-12 bg-dark-4 border-none placeholder:text-light-4 focus-visible:ring-1 focus-visible:ring-offset-1 ring-offset-light-3"
                     {...field}
                   />
@@ -137,17 +136,17 @@ const SignUpForm = ({ isLoading, onSubmit }: SignUpFormProps) => {
             type="submit"
             className="mt-4 flex gap-2 bg-primary-500 hover:bg-primary-600 text-light-1 font-medium"
           >
-            {isLoading ? <Loader /> : null} Sign up
+            {isLoading ? <Loader /> : null} {SIGN_UP_FORM.SUBMIT_BUTTON_TEXT}
           </Button>
         </form>
 
         <p className="mt-4 text-sm text-light-2 text-center">
-          Already have an account?
+          {SIGN_UP_FORM.QUESTION_TEXT}
           <Link
             to="/sign-in"
             className="ml-1 text-primary-500 font-semibold hover:underline"
           >
-            Sign in
+            {SIGN_UP_FORM.LINK_TEXT}
           </Link>
         </p>
       </div>
